@@ -452,124 +452,124 @@
         // Função para atualizar a lista na página
         // Função para atualizar a lista na página
         function atualizarLista() {
-    const nomeListaAtual = $("#nomeListaAtual");
-    const lista = JSON.parse(localStorage.getItem(nomeListaAtual.text())) || { items: [] };
-    const listaUl = $("#lista");
-    listaUl.html("");
+            const nomeListaAtual = $("#nomeListaAtual");
+            const lista = JSON.parse(localStorage.getItem(nomeListaAtual.text())) || { items: [] };
+            const listaUl = $("#lista");
+            listaUl.html("");
 
-    let totalLista = 0;
-    let totalCarrinho = 0;
-    let totalForaDoCarrinho = 0;
+            let totalLista = 0;
+            let totalCarrinho = 0;
+            let totalForaDoCarrinho = 0;
 
-    $.each(lista.items, function (index, item) {
-        const checkboxContainer = $("<div>").addClass("c-control");
-        const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
-        const checkbox = $("<input>").attr({
-            type: "checkbox",
-            class: "item-checkbox",
-            id: "item" + index,
-            "data-index": index
-        });
-
-        // Defina o estado do checkbox com base em 'data-selecionado'
-        checkbox.prop("checked", item.selecionado);
-
-        const checkmark = $("<span>").addClass("checkmark");
-        checkboxLabel.append(checkbox, checkmark);
-        checkboxContainer.append(checkboxLabel);
-
-        let precoFormatado = item.preco;
-        let totalItem = 0;
-
-        // Verificar se o preço é válido antes de realizar cálculos
-        if (!isNaN(parseFloat(item.preco)) && isFinite(item.preco)) {
-            precoFormatado = parseFloat(item.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            totalItem = item.quantidade * parseFloat(item.preco);
-        }
-
-        checkboxContainer.append(
-            `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem.toLocaleString(
-                'pt-BR',
-                { style: 'currency', currency: 'BRL' }
-            )}`
-        );
-
-        const listItem = $("<li>").append(checkboxContainer);
-
-        listaUl.append(listItem);
-
-        const editButton = $("<button>").text("Editar");
-        editButton.click(function () {
-            iniciarEdicaoOuAdicao(index);
-        });
-
-       checkboxContainer.append(editButton);
-
-
-            // Função para atualizar os totais
-            function atualizaTotais(lista) { // Receba a lista como argumento
-                // Recalcule os totais do carrinho e fora do carrinho
-                totalCarrinho = 0;
-                totalForaDoCarrinho = 0;
-                $.each(lista.items, function (index, item) {
-                    const totalItem = item.quantidade * item.preco;
-                    if (item.selecionado) {
-                        totalCarrinho += totalItem;
-                    } else {
-                        totalForaDoCarrinho += totalItem;
-                    }
+            $.each(lista.items, function (index, item) {
+                const checkboxContainer = $("<div>").addClass("c-control");
+                const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
+                const checkbox = $("<input>").attr({
+                    type: "checkbox",
+                    class: "item-checkbox",
+                    id: "item" + index,
+                    "data-index": index
                 });
 
-                // Atualize os totais na página
-                const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                const totalForaCarrinhoFormatado = totalForaDoCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                // Defina o estado do checkbox com base em 'data-selecionado'
+                checkbox.prop("checked", item.selecionado);
 
-                $("#totalCarrinho").text(totalCarrinhoFormatado);
-                $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
+                const checkmark = $("<span>").addClass("checkmark");
+                checkboxLabel.append(checkbox, checkmark);
+                checkboxContainer.append(checkboxLabel);
 
-                // Atualize o LocalStorage com a lista atualizada
-                localStorage.setItem(nomeLista, JSON.stringify(lista));
+                let precoFormatado = item.preco;
+                let totalItem = 0;
+
+                // Verificar se o preço é válido antes de realizar cálculos
+                if (!isNaN(parseFloat(item.preco)) && isFinite(item.preco)) {
+                    precoFormatado = parseFloat(item.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                    totalItem = item.quantidade * parseFloat(item.preco);
+                }
+
+                checkboxContainer.append(
+                    `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem.toLocaleString(
+                        'pt-BR',
+                        { style: 'currency', currency: 'BRL' }
+                    )}`
+                );
+
+                const listItem = $("<li>").append(checkboxContainer);
+
+                listaUl.append(listItem);
+
+                const editButton = $("<button>").text("Editar");
+                editButton.click(function () {
+                    iniciarEdicaoOuAdicao(index);
+                });
+
+                checkboxContainer.append(editButton);
 
 
-            }
+                // Função para atualizar os totais
+                function atualizaTotais(lista) { // Receba a lista como argumento
+                    // Recalcule os totais do carrinho e fora do carrinho
+                    totalCarrinho = 0;
+                    totalForaDoCarrinho = 0;
+                    $.each(lista.items, function (index, item) {
+                        const totalItem = item.quantidade * item.preco;
+                        if (item.selecionado) {
+                            totalCarrinho += totalItem;
+                        } else {
+                            totalForaDoCarrinho += totalItem;
+                        }
+                    });
 
-        // Adicionar eventos para marcar/desmarcar os itens
-        checkbox.change(function () {
-            const isChecked = this.checked;
-            const dataIndex = $(this).data("index");
+                    // Atualize os totais na página
+                    const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                    const totalForaCarrinhoFormatado = totalForaDoCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-            // Marcar/desmarcar o item no array de itens
-            lista.items[dataIndex].selecionado = isChecked;
+                    $("#totalCarrinho").text(totalCarrinhoFormatado);
+                    $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
 
-            // Atualizar o LocalStorage
-            localStorage.setItem(nomeListaAtual.text(), JSON.stringify(lista));
+                    // Atualize o LocalStorage com a lista atualizada
+                    localStorage.setItem(nomeLista, JSON.stringify(lista));
 
-            // Atualizar o total do carrinho e fora do carrinho
-            atualizaTotais(lista); // Passe a lista como argumento
-        });
 
-        // Calculando o total da lista
-        totalLista += item.quantidade * item.preco;
+                }
 
-        // Verificando se o item já está selecionado e marcando a caixa de seleção, se necessário
-        if (item.selecionado) {
-            checkbox.prop("checked", true);
-            totalCarrinho += item.quantidade * item.preco;
+                // Adicionar eventos para marcar/desmarcar os itens
+                checkbox.change(function () {
+                    const isChecked = this.checked;
+                    const dataIndex = $(this).data("index");
+
+                    // Marcar/desmarcar o item no array de itens
+                    lista.items[dataIndex].selecionado = isChecked;
+
+                    // Atualizar o LocalStorage
+                    localStorage.setItem(nomeListaAtual.text(), JSON.stringify(lista));
+
+                    // Atualizar o total do carrinho e fora do carrinho
+                    atualizaTotais(lista); // Passe a lista como argumento
+                });
+
+                // Calculando o total da lista
+                totalLista += item.quantidade * item.preco;
+
+                // Verificando se o item já está selecionado e marcando a caixa de seleção, se necessário
+                if (item.selecionado) {
+                    checkbox.prop("checked", true);
+                    totalCarrinho += item.quantidade * item.preco;
+                }
+            });
+
+            // Exibir totais
+            const totalListaFormatado = totalLista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const totalForaCarrinhoFormatado = (totalLista - totalCarrinho).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+            });
+
+            $("#totalLista").text(totalListaFormatado);
+            $("#totalCarrinho").text(totalCarrinhoFormatado);
+            $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
         }
-    });
-
-    // Exibir totais
-    const totalListaFormatado = totalLista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    const totalForaCarrinhoFormatado = (totalLista - totalCarrinho).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-    });
-
-    $("#totalLista").text(totalListaFormatado);
-    $("#totalCarrinho").text(totalCarrinhoFormatado);
-    $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
-}
 
         function abrirModal() {
             $(".box-content-modal").addClass("active");
@@ -597,6 +597,17 @@
             })
         });
 
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((registration) => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                })
+                .catch((error) => {
+                    console.error('Erro ao registrar o Service Worker:', error);
+                });
+        }
     </script>
 </body>
 
