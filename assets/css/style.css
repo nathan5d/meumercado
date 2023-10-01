@@ -274,3 +274,15 @@ input, textarea, select, .input, .textarea, .select {
   .navbar-menu {
     background-color: #fff;
     box-shadow: none; } }
+
+#offline-message {
+  width: 100%;
+  background-color: red;
+  color: #ffffff;
+  padding: 5px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 20px 20px 0 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 1; }
