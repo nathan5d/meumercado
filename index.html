@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Listas de Compras</title>
 
-     <!-- Dentro da seção head -->
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="manifest" href="manifest.json">
-     <meta name="apple-mobile-web-app-capable" content="yes">
-     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-     <meta name="apple-mobile-web-app-title" content="Meu Mercado">
-     <link rel="apple-touch-icon" href="/assets/images/AppIcon.png">
-     <meta name="apple-mobile-web-app-status-bar" content="#ffffff" />
-     <meta name="theme-color" content="#ffffff" />
- 
+    <!-- Dentro da seção head -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Meu Mercado">
+    <link rel="apple-touch-icon" href="/assets/images/AppIcon.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
+
 
     <link rel="stylesheet" href="./vendor/bulma/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -275,8 +275,8 @@
 
                 checkboxContainer.append(checkboxLabel, `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem}`);
                 //const listItem = $("<li>").append(checkboxContainer, `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem}`);
-               controlContainer.append(checkboxContainer);
-                    const listItem = $("<li>").append(controlContainer);
+                controlContainer.append(checkboxContainer);
+                const listItem = $("<li>").append(controlContainer);
 
                 listaUl.append(listItem);
 
@@ -479,7 +479,8 @@
             let totalForaDoCarrinho = 0;
 
             $.each(lista.items, function (index, item) {
-                const checkboxContainer = $("<div>").addClass("c-control");
+                const controlContainer = $("<div>").addClass("c-control");
+                const checkboxContainer = $("<div>");
                 const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
@@ -488,30 +489,22 @@
                     "data-index": index
                 });
 
-                // Defina o estado do checkbox com base em 'data-selecionado'
-                checkbox.prop("checked", item.selecionado);
+               
+                // Adicione um identificador aos itens selecionados
+                checkbox.attr("data-selecionado", item.selecionado);
 
                 const checkmark = $("<span>").addClass("checkmark");
                 checkboxLabel.append(checkbox, checkmark);
-                checkboxContainer.append(checkboxLabel);
+                //checkboxContainer.append(checkboxLabel);
 
-                let precoFormatado = item.preco;
-                let totalItem = 0;
+                // Formatando os valores como monetários (Reais - BRL)
+                const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const totalItem = (item.quantidade * item.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-                // Verificar se o preço é válido antes de realizar cálculos
-                if (!isNaN(parseFloat(item.preco)) && isFinite(item.preco)) {
-                    precoFormatado = parseFloat(item.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                    totalItem = item.quantidade * parseFloat(item.preco);
-                }
-
-                checkboxContainer.append(
-                    `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem.toLocaleString(
-                        'pt-BR',
-                        { style: 'currency', currency: 'BRL' }
-                    )}`
-                );
-
-                const listItem = $("<li>").append(checkboxContainer);
+                checkboxContainer.append(checkboxLabel, `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem}`);
+                //const listItem = $("<li>").append(checkboxContainer, `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem}`);
+                controlContainer.append(checkboxContainer);
+                const listItem = $("<li>").append(controlContainer);
 
                 listaUl.append(listItem);
 
@@ -520,8 +513,8 @@
                     iniciarEdicaoOuAdicao(index);
                 });
 
-                checkboxContainer.append(editButton);
-
+                // listItem.append(editButton);
+                controlContainer.append(editButton);
 
                 // Função para atualizar os totais
                 function atualizaTotais(lista) { // Receba a lista como argumento
@@ -624,14 +617,14 @@
             );
 
             //if (!isLocalhost) {
-                // Ambiente de produção (GitHub Pages)
-                navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                }).catch(function (error) {
-                    console.log('Erro ao registrar o Service Worker:', error);
-                });
+            // Ambiente de produção (GitHub Pages)
+            navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+                console.log('Service Worker registrado com sucesso:', registration);
+            }).catch(function (error) {
+                console.log('Erro ao registrar o Service Worker:', error);
+            });
             //} else {
-                // Ambiente de desenvolvimento local
+            // Ambiente de desenvolvimento local
             //    console.log('Este é um ambiente de desenvolvimento local. O Service Worker não será registrado.');
             //}
         }
