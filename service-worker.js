@@ -8,7 +8,6 @@ const urlsToCache = [
     "/meumercado/vendor/bulma/css/bulma.min.css",
     "/meumercado/vendor/jquery/dist/jquery.min.js",
     "/meumercado/assets/images/Appicon.png",
-    "https://unpkg.com/ionicons@latest/dist/ionicons.js",
     
     
     // Adicione outros recursos que deseja cachear aqui
