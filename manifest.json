@@ -2,7 +2,7 @@
     "name": "Meu Mercado",
     "short_name": "Meu Mercado",
     "description": "Gerenciador de Listas de Compras",
-    "start_url": "https://hub.amaraldev.com.br/gestorfinancas/public/",
+    "start_url": "https://nathan5d.github.io/meumercado/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#2196F3",
@@ -16,7 +16,7 @@
     ],
     "scope": "https://nathan5d.github.io/meumercado/",
     "serviceworker": {
-      "src": "/service-worker.js"
+      "src": "https://nathan5d.github.io/meumercado/service-worker.js"
     }
   }
   

@@ -1,15 +1,12 @@
-const CACHE_NAME = "meumercado-v1";
+const CACHE_NAME = "intervalo-flex-cache-v2";
 const CACHE_TIME = 5 * 24 * 60 * 60 * 1000; // 5 dias em milissegundos
 
 const urlsToCache = [
-    "/",
     "/meumercado/",
-    "/meumercado/assets/css/style.css",
-    "/meumercado/vendor/bulma/css/bulma.min.css",
-    "/meumercado/vendor/jquery/dist/jquery.min.js",
+    "/meumercado/index.html",
+    "/meumercado/fallback.html",
+    "/meumercado/assets/style.css",
     "/meumercado/assets/images/AppIcon.png",
-    
-    
     // Adicione outros recursos que deseja cachear aqui
 ];
 
@@ -40,23 +37,12 @@ self.addEventListener("fetch", (event) => {
                     return networkResponse;
                 })
                 .catch(() => {
-                    // Enviar uma mensagem para a página principal
-                    self.clients.matchAll().then((clients) => {
-                        clients.forEach((client) => {
-                            client.postMessage({ type: "offline" });
-                        });
-                    });
-
-                    // Retornar uma resposta vazia
-                    return new Response('', {
-                        status: 503,
-                        statusText: 'Serviço Indisponível',
-                    });
+                    // Aqui, você pode retornar um fallback do cache ou uma mensagem de erro
+                    return caches.match('fallback.html'); // Você precisa ter um arquivo fallback.html no cache
                 });
         })
     );
 });
-
 
 self.addEventListener("activate", (event) => {
     event.waitUntil(
