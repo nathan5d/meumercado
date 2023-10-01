@@ -104,7 +104,8 @@ li {
 
 button.button {
   appearance: none;
-  border: none; }
+  border: none;
+  transition: all ease-in-out 0.3s; }
   button.button:not(.small) {
     width: 100%;
     background-color: #2196F3; }
@@ -164,7 +165,7 @@ input, textarea, select, .input, .textarea, .select {
 
 .btn-add.show {
   animation: showButton 0.3s ease-in-out forwards;
-  box-shadow: 0 0em 0em 6px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02); }
+  box-shadow: 0 0em 6px 6px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02); }
 
 @keyframes showButton {
   0% {
@@ -212,10 +213,12 @@ input, textarea, select, .input, .textarea, .select {
     border-radius: 8px;
     border: none;
     appearance: none;
-    background: #2196F3;
-    color: #ffffff;
+    font-weight: bold;
+    background-color: #efefef;
+    color: #2196F3;
     transition: all ease-in-out 0.3s; }
     .c-control button:hover {
+      color: #ffffff;
       background: #66bb6a; }
   .c-control label {
     display: block;
