@@ -252,7 +252,8 @@
             let totalForaDoCarrinho = 0;
 
             $.each(lista.items, function (index, item) {
-                const checkboxContainer = $("<div>").addClass("c-control");
+                const controlContainer = $("<div>").addClass("c-control");
+                const checkboxContainer = $("<div>");
                 const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
@@ -274,7 +275,8 @@
 
                 checkboxContainer.append(checkboxLabel, `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem}`);
                 //const listItem = $("<li>").append(checkboxContainer, `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem}`);
-                const listItem = $("<li>").append(checkboxContainer);
+               controlContainer.append(checkboxContainer);
+                    const listItem = $("<li>").append(controlContainer);
 
                 listaUl.append(listItem);
 
@@ -284,7 +286,7 @@
                 });
 
                 // listItem.append(editButton);
-                checkboxContainer.append(editButton);
+                controlContainer.append(editButton);
                 // Adicionar eventos para marcar/desmarcar os itens
                 checkbox.change(function () {
                     const isChecked = this.checked;

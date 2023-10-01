@@ -126,6 +126,8 @@ input,textarea,select,.input,.textarea,.select{
 
 .btn-add.show {
     animation: showButton 0.3s ease-in-out forwards;
+    box-shadow: 0 0em 0em 6px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
+
 }
 
 @keyframes showButton {
@@ -164,20 +166,15 @@ input,textarea,select,.input,.textarea,.select{
 
 /* CHECKBOX */
 .c-control{
-    display: block;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.8rem;
     position: relative;
 
     button{
-        
-        position: absolute;
         padding: 10px 20px;
         border-radius: 8px;
-        right: 0;
-        top: 0;
-        height: 100%;
         border: none;
         appearance: none;
         background: $primary;
