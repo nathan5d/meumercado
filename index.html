@@ -605,6 +605,18 @@
             $('.btn-add').on('click', function () {
                 iniciarEdicaoOuAdicao();
             })
+
+            const offlineMessage = $("#offline-message");
+            const offlineStatus = navigator.onLine;
+            console.log(offlineStatus);
+            if(offlineStatus){
+                offlineMessage.css('display','none')
+            }else{
+                offlineMessage.css('display','block')
+            }
+           
+            //offlineMessage.style.display = navigator.onLine ? "none" : "block";
+
         });
 
     </script>
