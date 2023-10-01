@@ -4,7 +4,6 @@ const CACHE_TIME = 5 * 24 * 60 * 60 * 1000; // 5 dias em milissegundos
 const urlsToCache = [
     "/meumercado/",
     "/meumercado/index.html",
-    "/meumercado/fallback.html",
     "/meumercado/assets/style.css",
     "/meumercado/assets/images/AppIcon.png",
     // Adicione outros recursos que deseja cachear aqui
