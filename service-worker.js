@@ -7,7 +7,7 @@ const urlsToCache = [
     "/meumercado/assets/css/style.css",
     "/meumercado/vendor/bulma/css/bulma.min.css",
     "/meumercado/vendor/jquery/dist/jquery.min.js",
-    "/meumercado/assets/images/Appicon.png",
+    "/meumercado/assets/images/AppIcon.png",
     
     
     // Adicione outros recursos que deseja cachear aqui
