@@ -1,0 +1,19 @@
+{
+  "name": "meumercado",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch-scss": "node-sass --watch ./scss -o ./assets/css --recursive",
+    "serve": "browser-sync start --server --files 'assets/css/*.css, *.html' --directory"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "bulma": "^0.9.4",
+    "jquery": "^3.7.1",
+    "node-sass": "^9.0.0"
+  }
+}

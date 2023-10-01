@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Listas de Compras</title>
+
+    <link rel="stylesheet" href="./vendor/bulma/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <script src="./vendor/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+
+
+</head>
+
+<body>
+    <!-- Container principal -->
+    <div class="container">
+
+
+        <!-- Conteúdo do aplicativo -->
+        <section class="full-content">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+
+                <div class="navbar-menu">
+                    <!-- shown on mobile -->
+                    <div class="navbar-item">
+
+                        <p class="subtitle is-5">Minhas listas</p>
+                    </div>
+
+
+                </div>
+
+            </nav>
+
+
+
+            <!-- Lista de listas com estilo iOS -->
+            <div class="box-content-header">
+                <span class="box-content-title">Listas de Compras</span>
+            </div>
+            <div class="box-content">
+                <ul id="listas" class="menu-list">
+                    <!-- Listas de compras serão adicionadas aqui -->
+                </ul>
+                <!-- Botão para limpar a lista com estilo iOS -->
+
+            </div>
+
+            <div class="box-content-header">
+                <span class="box-content-title">Nova Lista</span>
+            </div>
+            <div class="box-content">
+                <!-- Campos e botões com estilo iOS -->
+                <div class="field">
+                    <label class="label">Nome da Lista</label>
+                    <div class="control">
+                        <input class="input" type="text" id="nomeLista" placeholder="Nome da Lista">
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" onclick="criarLista()">Criar Lista</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </section>
+        <!-- Container para campos de adicionar item (inicialmente oculto) -->
+        <div id="camposAdicionarItem" class="full-content" style="display: none;">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+
+                <div class="navbar-menu">
+                    <!-- shown on mobile -->
+                    <div class="navbar-item">
+                        <span class="icon toback is-large">
+                            <button class="button" onclick="ocultarLista()">
+                                <ion-icon name="arrow-back-outline"></ion-icon>
+                            </button>
+                        </span>
+                        <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtual"></p>
+                    </div>
+
+                    <div class="navbar-item">
+                        <button class="button is-danger" onclick="removerListaAtual()">Remover Lista</button>
+                    </div>
+                </div>
+
+            </nav>
+
+
+            <!-- Lista de itens com estilo iOS -->
+
+            <div class="box-content-header">
+                <span class="box-content-title">Itens da Lista</span>
+                <button class="btn-add" onclick="toogleSwipe()">+</button>
+            </div>
+
+            <div class="box-content">
+                <ul id="lista">
+                    <!-- Itens da lista serão adicionados aqui -->
+                </ul>
+            </div>
+
+            <div class="box-content">
+                <div class="total">
+                    <div id="totaLista">Total: <b id="totalLista"></b></div>
+                    <div class="foraCarrinho">Não marcados: <b id="totalForaCarrinho"></b></div>
+                    <div class="carrinho">Marcados: <b id="totalCarrinho"></b></div>
+                </div>
+
+            </div>
+
+            <div class="box-content">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-danger" onclick="limparLista()">Limpar Lista</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box-content-modal" style="text-align: center;">
+                <div class="close">&times</div>
+                <div class="x-panel-mobile">
+
+                </div>
+
+
+                <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtualModal"></p>
+                <div class="content">
+                    <!-- Campos e botões com estilo iOS para adicionar itens -->
+                    <div class="field">
+                        <label class="label">Nome do Item</label>
+                        <div class="control">
+                            <input class="input" type="text" id="item" placeholder="Nome do Item">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Quantidade</label>
+                        <div class="control">
+                            <input class="input" type="number" id="quantidade" placeholder="Quantidade">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Preço</label>
+                        <div class="control">
+                            <input class="input" type="number" id="preco" placeholder="Preço">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Unidade</label>
+                        <div class="control">
+                            <input class="input" type="text" id="unidade" placeholder="Unidade">
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-primary" onclick="adicionarItem()">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Função para mostrar/ocultar campos de adicionar item
+        function mostrarCamposAdicionarItem() {
+            const camposAdicionarItem = $("#camposAdicionarItem");
+            camposAdicionarItem.toggle();
+        }
+
+        // Função para criar uma nova lista de compras
+        function criarLista() {
+            const nomeListaInput = $("#nomeLista");
+            const nomeLista = nomeListaInput.val().trim();
+
+            if (nomeLista !== "") {
+                const lista = { items: [] }; // Crie uma nova lista vazia
+                const listas = JSON.parse(localStorage.getItem("listas")) || [];
+
+                if (!listas.includes(nomeLista)) {
+                    listas.push(nomeLista);
+                    localStorage.setItem("listas", JSON.stringify(listas));
+                }
+
+                localStorage.setItem(nomeLista, JSON.stringify(lista));
+                nomeListaInput.val("");
+
+                listarListas();
+                mostrarLista(nomeLista);
+            }
+        }
+
+        // Função para listar todas as listas disponíveis
+        function listarListas() {
+            const listas = JSON.parse(localStorage.getItem("listas")) || [];
+            const listasUl = $("#listas");
+            listasUl.html("");
+
+            $.each(listas, function (index, lista) {
+                const listItem = $("<li>").text(lista);
+                listItem.click(function () {
+                    mostrarLista(lista);
+                });
+                listasUl.append(listItem);
+            });
+        }
+
+        function ocultarLista() {
+            const camposAdicionarItem = $("#camposAdicionarItem");
+            camposAdicionarItem.hide();
+        }
+
+        // Função para mostrar uma lista específica
+        function mostrarLista(nomeLista) {
+            const nomeListaAtual = $("#nomeListaAtual");
+            nomeListaAtual.text(nomeLista);
+
+            // Mostrar campos de adicionar item quando uma lista é selecionada
+            const camposAdicionarItem = $("#camposAdicionarItem");
+            camposAdicionarItem.show();
+
+            let lista = JSON.parse(localStorage.getItem(nomeLista)) || { items: [] }; // Obtenha a lista do LocalStorage
+
+            console.log
+            const listaUl = $("#lista");
+            listaUl.html("");
+
+            let totalLista = 0; // Inicialize o total da lista
+            let totalCarrinho = 0; // Inicialize o total do carrinho
+            let totalForaDoCarrinho = 0;
+
+            $.each(lista.items, function (index, item) {
+                const checkboxContainer = $("<div>").addClass("c-control");
+                const checkboxLabel = $("<label>").addClass("").text(item.nome);
+                const checkbox = $("<input>").attr({
+                    type: "checkbox",
+                    class: "item-checkbox",
+                    "data-index": index
+                });
+
+                // Adicione um identificador aos itens selecionados
+                checkbox.attr("data-selecionado", item.selecionado);
+
+                const checkmark = $("<span>").addClass("checkmark");
+                checkboxLabel.append(checkbox, checkmark);
+                checkboxContainer.append(checkboxLabel);
+
+                // Formatando os valores como monetários (Reais - BRL)
+                const precoFormatado = item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const totalItem = (item.quantidade * item.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+                const listItem = $("<li>").append(checkboxContainer, `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem}`);
+
+                listaUl.append(listItem);
+
+                const editButton = $("<button>").text("Editar");
+                editButton.click(function () {
+                    iniciarEdicao(index);
+                });
+
+                listItem.append(editButton);
+
+                // Adicionar eventos para marcar/desmarcar os itens
+                checkbox.change(function () {
+                    const isChecked = this.checked;
+                    const dataIndex = $(this).data("index");
+
+                    // Marcar/desmarcar o item no array de itens
+                    lista.items[dataIndex].selecionado = isChecked;
+
+                    // Atualizar o LocalStorage
+                    localStorage.setItem(nomeLista, JSON.stringify(lista));
+                    console.log(nomeLista, JSON.stringify(lista));
+
+                    // Atualizar o total do carrinho e fora do carrinho
+                    atualizaTotais(lista); // Passe a lista como argumento
+                });
+
+                // Calculando o total da lista
+                totalLista += item.quantidade * item.preco;
+
+                // Verificando se o item já está selecionado e marcando a caixa de seleção, se necessário
+                if (item.selecionado) {
+                    checkbox.prop("checked", true);
+                    totalCarrinho += item.quantidade * item.preco;
+                }
+            });
+
+            // Exibir os totais no final
+            const totalListaFormatado = totalLista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const totalForaCarrinhoFormatado = totalForaDoCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            $("#totalLista").text(totalListaFormatado);
+
+            // Função para atualizar os totais
+            function atualizaTotais(lista) { // Receba a lista como argumento
+                // Recalcule os totais do carrinho e fora do carrinho
+                totalCarrinho = 0;
+                totalForaDoCarrinho = 0;
+                $.each(lista.items, function (index, item) {
+                    const totalItem = item.quantidade * item.preco;
+                    if (item.selecionado) {
+                        totalCarrinho += totalItem;
+                    } else {
+                        totalForaDoCarrinho += totalItem;
+                    }
+                });
+
+                // Atualize os totais na página
+                const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const totalForaCarrinhoFormatado = totalForaDoCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+                $("#totalCarrinho").text(totalCarrinhoFormatado);
+                $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
+
+                // Atualize o LocalStorage com a lista atualizada
+                localStorage.setItem(nomeLista, JSON.stringify(lista));
+
+
+            }
+
+            // Chame a função para atualizar os totais
+            atualizaTotais(lista); // Passe a lista como argumento
+        }
+
+        // Função para adicionar um item à lista atual
+
+        // Função para adicionar um item à lista atual
+        // Função para adicionar um item à lista atual
+        function adicionarItem() {
+            const nomeListaAtual = $("#nomeListaAtual").text();
+            const itemInput = $("#item");
+            const quantidadeInput = $("#quantidade");
+            const precoInput = $("#preco");
+            const unidadeInput = $("#unidade");
+
+            const nomeItem = itemInput.val().trim();
+            const quantidade = parseFloat(quantidadeInput.val());
+            const preco = parseFloat(precoInput.val());
+            const unidade = unidadeInput.val().trim();
+
+            if (nomeItem !== "" && !isNaN(quantidade) && !isNaN(preco) && unidade !== "") {
+                const item = {
+                    nome: nomeItem,
+                    quantidade: quantidade,
+                    preco: preco, // Não formatamos o preço aqui
+                    unidade: unidade,
+                    selecionado: false
+                };
+
+                const lista = JSON.parse(localStorage.getItem(nomeListaAtual)) || { items: [] };
+                lista.items.push(item);
+                localStorage.setItem(nomeListaAtual, JSON.stringify(lista));
+
+                atualizarLista();
+                itemInput.val("");
+                quantidadeInput.val("");
+                precoInput.val(""); // Não é necessário formatar aqui
+                unidadeInput.val("");
+            }
+            toogleSwipe();
+        }
+
+        function iniciarEdicao(indice) {
+            const nomeListaAtual = $("#nomeListaAtual").text();
+            const lista = JSON.parse(localStorage.getItem(nomeListaAtual)) || { items: [] };
+
+            // Preencha os campos de edição com os valores do item selecionado
+            const itemEditado = lista.items[indice];
+            $("#item").val(itemEditado.nome);
+            $("#quantidade").val(itemEditado.quantidade);
+            $("#preco").val(itemEditado.preco);
+            $("#unidade").val(itemEditado.unidade);
+
+            // Defina o índice do item sendo editado como um atributo de dados no botão "Salvar Edição"
+            $("#nomeListaAtualModal").text("Editando: " + itemEditado.nome);
+            $("#editarItemBtn").data("indice", indice);
+
+            // Abra o modal de edição
+            $(".box-content-modal").addClass("active");
+        }
+
+        // Função para editar um item
+        function editarItem(item,index) {
+            const nomeListaAtual = $("#nomeListaAtual").text();
+            const editItemInput = $("#item");
+            const editQuantidadeInput = $("#quantidade");
+            const editPrecoInput = $("#preco");
+            const editUnidadeInput = $("#unidade");
+
+            const nomeItemEditado = editItemInput.val().trim();
+            const quantidadeEditada = parseFloat(editQuantidadeInput.val());
+            const precoEditado = parseFloat(editPrecoInput.val());
+            const unidadeEditada = editUnidadeInput.val().trim();
+
+            //const indiceDoItemEditado = $("#editarItemBtn").data("indice"); // Obtenha o índice do item sendo editado
+            const indiceDoItemEditado = index;//$("#editarItemBtn").data("indice"); // Obtenha o índice do item sendo editado
+
+            // Obtenha a lista do LocalStorage
+            const lista = JSON.parse(localStorage.getItem(nomeListaAtual)) || { items: [] };
+
+            // Atualize os valores do item com os valores dos campos de edição
+            lista.items[indiceDoItemEditado].nome = nomeItemEditado;
+            lista.items[indiceDoItemEditado].quantidade = quantidadeEditada;
+            lista.items[indiceDoItemEditado].preco = precoEditado;
+            lista.items[indiceDoItemEditado].unidade = unidadeEditada;
+
+            // Atualize o LocalStorage com a lista atualizada
+            localStorage.setItem(nomeListaAtual, JSON.stringify(lista));
+
+            // Recarregue a lista e exiba-a novamente
+            atualizarLista();
+
+            // Feche o modal de edição
+            $("#nomeListaAtualModal").text(""); // Limpe o nome do item editado
+            $(".box-content-modal").removeClass("active"); // Feche o modal
+        }
+
+        // Função para atualizar a lista na página
+        
+
+        // Função para remover a lista atual
+        function removerListaAtual() {
+            const nomeListaAtual = $("#nomeListaAtual").text();
+            if (confirm(`Tem certeza de que deseja remover a lista "${nomeListaAtual}"?`)) {
+                // Remover a lista do LocalStorage
+                const listas = JSON.parse(localStorage.getItem("listas")) || [];
+                const index = listas.indexOf(nomeListaAtual);
+                if (index > -1) {
+                    listas.splice(index, 1);
+                    localStorage.setItem("listas", JSON.stringify(listas));
+                }
+
+                // Remover a lista atual do LocalStorage
+                localStorage.removeItem(nomeListaAtual);
+
+                // Limpar a lista na página
+                atualizarLista();
+
+                // Limpar o nome da lista atual
+                $("#nomeListaAtual").text("");
+            }
+        }
+
+        // Função para limpar a lista atual
+        function limparLista() {
+            const nomeListaAtual = $("#nomeListaAtual").text();
+            if (confirm(`Tem certeza de que deseja limpar a lista "${nomeListaAtual}"?`)) {
+                const lista = { items: [] };
+                localStorage.setItem(nomeListaAtual, JSON.stringify(lista));
+                atualizarLista();
+            }
+        }
+
+        // Função para atualizar a lista na página
+        // Função para atualizar a lista na página
+        function atualizarLista() {
+            const nomeListaAtual = $("#nomeListaAtual").text();
+            const lista = JSON.parse(localStorage.getItem(nomeListaAtual)) || { items: [] };
+            const listaUl = $("#lista");
+            listaUl.html("");
+
+            let totalLista = 0;
+            let totalCarrinho = 0;
+            let totalForaDoCarrinho = 0;
+
+            $.each(lista.items, function (index, item) {
+                const checkboxContainer = $("<div>").addClass("c-control");
+                const checkboxLabel = $("<label>").addClass("").text(item.nome);
+                const checkbox = $("<input>").attr({
+                    type: "checkbox",
+                    class: "item-checkbox",
+                    "data-index": index,
+                });
+
+                checkbox.attr("data-selecionado", item.selecionado);
+
+                const checkmark = $("<span>").addClass("checkmark");
+                checkboxLabel.append(checkbox, checkmark);
+                checkboxContainer.append(checkboxLabel);
+
+                let precoFormatado = item.preco;
+                let totalItem = 0;
+
+                // Verificar se o preço é válido antes de realizar cálculos
+                if (!isNaN(parseFloat(item.preco)) && isFinite(item.preco)) {
+                    precoFormatado = parseFloat(item.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                    totalItem = item.quantidade * parseFloat(item.preco);
+                }
+
+                const listItem = $("<li>").append(
+                    checkboxContainer,
+                    `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem.toLocaleString(
+                        'pt-BR',
+                        { style: 'currency', currency: 'BRL' }
+                    )}`
+                );
+
+                listaUl.append(listItem);
+
+                // Calculando totais
+                if (!isNaN(totalItem) && isFinite(totalItem)) {
+                    totalLista += totalItem;
+                    if (item.selecionado) {
+                        totalCarrinho += totalItem;
+                    }
+                }
+            });
+
+            // Exibir totais
+            const totalListaFormatado = totalLista.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const totalCarrinhoFormatado = totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            const totalForaCarrinhoFormatado = (totalLista - totalCarrinho).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+            });
+
+            $("#totalLista").text(totalListaFormatado);
+            $("#totalCarrinho").text(totalCarrinhoFormatado);
+            $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
+        }
+
+        function toogleSwipe() {
+            $('.box-content-modal').toggleClass('active');
+        }
+
+        // Carregar a lista de listas quando a página é carregada
+        $(document).ready(function () {
+            listarListas();
+            $('.box-content-modal .x-panel-mobile,.close').on('click', function () {
+                toogleSwipe();
+            })
+        });
+
+    </script>
+</body>
+
+</html>
