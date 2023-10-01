@@ -3,10 +3,11 @@ const CACHE_TIME = 5 * 24 * 60 * 60 * 1000; // 5 dias em milissegundos
 
 const urlsToCache = [
     "/",
-    "/assets/css/style.css",
-    "/vendor/bulma/css/bulma.min.css",
-    "/vendor/jquery/dist/jquery.min.js",
-    "/assets/images/Appicon.png",
+    "/meumercado/",
+    "/meumercado/assets/css/style.css",
+    "/meumercado/vendor/bulma/css/bulma.min.css",
+    "/meumercado/vendor/jquery/dist/jquery.min.js",
+    "/meumercado/assets/images/Appicon.png",
     "https://unpkg.com/ionicons@latest/dist/ionicons.js",
     
     
