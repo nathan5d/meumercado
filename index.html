@@ -38,7 +38,7 @@
     <script type="module" src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.js"></script>
 
-
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 </head>
 
 <body class="">
@@ -47,19 +47,23 @@
 
 
         <!-- Conteúdo do aplicativo -->
-        <section class="full-content">
+        <section class="full-content home">
+            <i class="ph-bold ph-smiley"></i>
+            <i class="ph-bold ph-heart" style="color: hotpink"></i>
+            <i class="ph-bold ph-cube"></i>
             <nav class="navbar" role="navigation" aria-label="main navigation">
 
                 <div class="navbar-menu">
                     <!-- shown on mobile -->
                     <div class="navbar-item">
 
-                        <p class="subtitle is-5">Minhas listas</p>
+                        <label class="title">Minhas listas</label>
                     </div>
 
                     <div class="navbar-item">
                         <span class="icon is-large">
                             <button class="button icon right" onclick="toggleDarkMode()">
+
                                 <ion-icon name="moon" class="darkModeToggle"></ion-icon>
                             </button>
                         </span>
@@ -108,24 +112,24 @@
 
         </section>
         <!-- Container para campos de adicionar item (inicialmente oculto) -->
-        <div id="camposAdicionarItem" class="full-content" style="display: none;">
+        <div id="camposAdicionarItem" class="full-content list" style="display: none;">
             <nav class="navbar" role="navigation" aria-label="main navigation">
 
                 <div class="navbar-menu">
                     <!-- shown on mobile -->
                     <div class="navbar-item">
                         <span class="icon toback is-large">
-                            <button class="button icon left" onclick="ocultarLista()">
-                                <ion-icon name="arrow-back-outline"></ion-icon>
+                            <button class="button icon left" id="toback" onclick="ocultarLista()">
+                                <icon class="ion-ios-arrow-left"></icon>
                             </button>
                         </span>
-                        <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtual"></p>
+                        <label class="title nome-lista-atual" for="toback"></label>
                     </div>
 
 
                     <div class="navbar-item">
                         <span class="icon is-large">
-                            <button class="button icon left" onclick="toggleDarkMode()">
+                            <button class="button icon" onclick="toggleDarkMode()">
                                 <ion-icon name="moon" class="darkModeToggle"></ion-icon>
                             </button>
                         </span>
@@ -139,8 +143,10 @@
             <!-- Lista de itens com estilo iOS -->
 
             <div class="box-content-header">
-                <span class="box-content-title">Itens da Lista</span>
-                <button class="btn-add show">+</button>
+                <span class="box-content-title" id="nomeListaAtual">Itens da Lista</span>
+                <button class="btn-add show">
+                    <icon>+</icon>
+                </button>
             </div>
 
             <div class="box-content">
@@ -213,6 +219,13 @@
         </div>
 
     </div>
+    <div id="loading-overlay">
+        <div id="loading-spinner">
+            <!-- Coloque aqui o ícone ou animação de carregamento -->
+            <ion-icon name="refresh"></ion-icon>
+        </div>
+    </div>
+
 
     <script>
         // Função para mostrar/ocultar campos de adicionar item
@@ -260,11 +273,11 @@
             $.each(listas, function (index, lista) {
                 const listItem = $("<li>");
 
-                const listContainer = $("<div>").addClass("c-control")
-                const listNome = $("<large>").addClass('subtitle').text(lista);
+                const listContainer = $("<div>").addClass("list-container");
+
+                const listNome = $("<span>").addClass('').text(lista);
 
                 listContainer.append(listNome);
-                listItem.append(listContainer);
 
                 // Adiciona um evento de clique ao item da lista para mostrar a lista
                 listItem.click(function () {
@@ -274,22 +287,36 @@
                 // Obtém a lista de itens para a lista atual
                 let listaItens = JSON.parse(localStorage.getItem(lista));
 
-
                 // Verifica se listaItens.items é um array; se não, cria um array vazio
                 if (!Array.isArray(listaItens.items)) {
                     listaItens.items = [];
                 }
-                // Calcula a contagem de itens marcados, não marcados e o total
+
+                // Calcula a contagem de itens marcados e o total de itens
                 const itensMarcados = listaItens.items.filter(item => item.selecionado).length;
-                const itensNaoMarcados = listaItens.items.filter(item => !item.selecionado).length;
                 const totalItens = listaItens.items.length;
 
-                // Cria um elemento <span> para exibir as contagens
-                // const contagemItens = $("<span>").text(`${itensMarcados}/${itensNaoMarcados} | Total: ${totalItens}`);
-                const contagemItens = $("<span>").text(`${itensMarcados}/${totalItens}`);
+                // Calcula a porcentagem de itens marcados em relação ao total
+                const porcentagem = (itensMarcados / totalItens) * 100;
 
-                // Adiciona a contagem de itens ao item da lista
-                listItem.append(contagemItens);
+                // Cria a barra de progresso
+                const progressContainer = $("<div>").addClass("progress-container");
+                const progress = $("<div>").addClass("completebar")
+
+                setTimeout(function () {
+                    // Altere a largura da barra de progresso para 100% após o atraso
+                    progress.css("width", porcentagem + "%");
+                }, 200);
+
+
+                progressContainer.append(progress);
+
+                // Adiciona a contagem de itens e a barra de progresso ao item da lista
+                const contagem = $('<span>').text(`${itensMarcados}/${totalItens}`);
+                listContainer.append(contagem);
+                listContainer.append(progressContainer);
+
+                listItem.append(listContainer);
 
                 // Adiciona o item da lista à lista não ordenada (<ul>)
                 listasUl.append(listItem);
@@ -303,16 +330,19 @@
 
         function ocultarLista() {
             const camposAdicionarItem = $("#camposAdicionarItem");
-            camposAdicionarItem.hide();
+            // camposAdicionarItem.hide();
+            reloadPage();
         }
 
         // Função para mostrar uma lista específica
         function mostrarLista(nomeLista) {
+
             const nomeListaAtual = $("#nomeListaAtual");
             nomeListaAtual.text(nomeLista);
 
             // Mostrar campos de adicionar item quando uma lista é selecionada
             const camposAdicionarItem = $("#camposAdicionarItem");
+
             camposAdicionarItem.show();
 
             let lista = JSON.parse(localStorage.getItem(nomeLista)) || { items: [] }; // Obtenha a lista do LocalStorage
@@ -328,7 +358,7 @@
             $.each(lista.items, function (index, item) {
                 const controlContainer = $("<div>").addClass("c-control");
                 const checkboxContainer = $("<div>");
-                const checkboxLabel = $("<label>").addClass("subtitle").text(item.nome).attr({ for: "item" + index });
+                const checkboxLabel = $("<label>").text(item.nome).attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
                     class: "item-checkbox",
@@ -527,6 +557,9 @@
 
                 // Limpar o nome da lista atual
                 $("#nomeListaAtual").text("");
+
+
+                reloadPage();
             }
         }
 
@@ -724,8 +757,50 @@
         }
 
 
+        function showList() {
+            // Esconde o conteúdo da página definindo o corpo como invisível
+            //$('body').css('visibility', 'hidden');
+            $('.full-content.list').remove('hidden');
+
+
+            // Mostra a div de carregamento
+            //$('#loading-overlay').css('display', 'flex');
+
+            // Recarrega a página após um breve atraso
+            setTimeout(function () {
+                // location.reload();
+                //  $('.full-content.list').removeClass('hidden');
+            }, 1000); // Tempo de atraso em milissegundos (1 segundo no exemplo)
+
+        }
+        function hideList() {
+            // Esconde o conteúdo da página definindo o corpo como invisível
+            //$('body').css('visibility', 'hidden');
+            //$('.full-content.home').css('opacity','0.7');
+            $('.full-content.list').addClass('hidden');
+
+
+            // Mostra a div de carregamento
+            //$('#loading-overlay').css('display', 'flex');
+
+            // Recarrega a página após um breve atraso
+            setTimeout(function () {
+                // location.reload();
+                //  $('.full-content.list').removeClass('hidden');
+            }, 1000); // Tempo de atraso em milissegundos (1 segundo no exemplo)
+
+        }
+
+
+        function reloadPage() {
+            hideList();
+            location.reload();
+        }
+
         // Carregar a lista de listas quando a página é carregada
         $(document).ready(function () {
+            $('.full-content.list').removeClass('hidden');
+            $('#loading-overlay').css('display', 'none');
             const savedDarkMode = localStorage.getItem('darkMode');
             if (savedDarkMode === 'true') {
                 // Se o modo escuro estiver salvo, aplique-o

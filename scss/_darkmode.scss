@@ -38,7 +38,7 @@ body.dark-mode {
 
         &:not(.header):not(.icon) {
             width: 100%;
-            background-color: $dark-primary;
+           // background-color: $dark-primary;
 
             &:hover {
                 background-color: $dark-success;
@@ -48,19 +48,76 @@ body.dark-mode {
 
 
     .full-content {
-        background-color: $dark-bg;
+        background-color: $dark-list-bg;
 
         .subtitle {
             color: $dark-text;
         }
-    }
 
-    ul {
-        li {
-            background-color: $dark-list-bg;
-            border-left: 3px solid $dark-accent;
+        ul {
+            li {
+                background-color: $dark-list-bg;
+    
+            .list-container {
+                .progress-container {
+                    &::after {
+                        background-color: $dark-bg-progress-container;
+                    }
+                }
+    
+                .completebar {
+                    background: $dark-success;
+    
+                }
+    
+                span {
+                    color: $dark-text;
+                    font-weight: 700;
+    
+                    &:last-child {
+                        font-size: 1.2rem;
+                        color: $dark-success;
+                        font-weight: 500;
+                    }
+                }
+            }
+            }
+        }
+
+        &.home{
+            ul {
+                li {
+                    background-color: $dark-bg;
+        
+                .list-container {
+                    .progress-container {
+                        &::after {
+                            background-color: $dark-bg-progress-container;
+                        }
+                    }
+        
+                    .completebar {
+                        background: $dark-success;
+        
+                    }
+        
+                    span {
+                        color: $dark-text;
+                        font-weight: 700;
+        
+                        &:last-of-type {
+                            font-size: 1.2rem;
+                            color: $dark-success;
+                            font-weight: 500;
+                        }
+                    }
+                }
+                }
+            }
         }
     }
+
+   
 
     input,
     textarea,
@@ -78,7 +135,7 @@ body.dark-mode {
 
     .close {
 
-        background: $dark-bg;
+        background: $dark-list-bg;
 
     }
 
@@ -151,7 +208,7 @@ body.dark-mode {
     .box-content {
         &-modal {
             color: $dark-text;
-            background-color: $dark-list-bg;
+            background-color: $dark-bg;
 
             &.active {
                 label.label {
