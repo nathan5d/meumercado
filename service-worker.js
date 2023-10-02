@@ -1,13 +1,13 @@
-const CACHE_NAME = "meumercado-v2";
+const CACHE_NAME = "meumercado-v1";
 const CACHE_TIME = 5 * 24 * 60 * 60 * 1000; // 5 dias em milissegundos
 
 const urlsToCache = [
     "/meumercado/",
     "/meumercado/index.html",
-    "/meumercado/vendor/bulma/css/bulma.min.css",
-    "/meumercado/vendor/jquery/dist/jquery.min.js",
-
-    "/meumercado/assets/style.css",
+    "/meumercado/fallback.html", 
+    "/meumercado/assets/css/style.css",
+    "/meumercado/favicon.ico",
+    "/meumercado/icon.png",
     "/meumercado/assets/images/AppIcon.png",
     // Adicione outros recursos que deseja cachear aqui
 ];
@@ -40,7 +40,7 @@ self.addEventListener("fetch", (event) => {
                 })
                 .catch(() => {
                     // Aqui, você pode retornar um fallback do cache ou uma mensagem de erro
-                    return caches.match('fallback.html'); // Você precisa ter um arquivo fallback.html no cache
+                    return caches.match('/meumercado/fallback.html'); // Certifique-se de ter um arquivo fallback.html no cache
                 });
         })
     );
@@ -53,7 +53,7 @@ self.addEventListener("activate", (event) => {
                 cacheNames
                     .filter((cacheName) => {
                         return (
-                            cacheName.startsWith("intervalo-flex-cache-") &&
+                            cacheName.startsWith("meumercado-") &&
                             cacheName !== CACHE_NAME
                         );
                     })

@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Listas de Compras</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
     <!-- Dentro da seção head -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Meu Mercado">
@@ -21,7 +22,8 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.js"></script>
 
 
 </head>
@@ -489,7 +491,7 @@
                     "data-index": index
                 });
 
-               
+
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
 
@@ -606,42 +608,45 @@
                 iniciarEdicaoOuAdicao();
             })
 
-            const offlineMessage = $("#offline-message");
-            const offlineStatus = navigator.onLine;
-            console.log(offlineStatus);
-            if(offlineStatus){
-                offlineMessage.css('display','none')
-            }else{
-                offlineMessage.css('display','block')
-            }
            
+            const offlineMessage = $("#offline-message");
+            const pageContent = $(".full-content");
+            console.log('teste',navigator.onLine);
+            if(navigator.onLine){
+                offlineMessage.css("display","none");
+            }else{
+                offlineMessage.css("display", "block");
+                pageContent.css("padding-bottom","30px");
+            }
+
             //offlineMessage.style.display = navigator.onLine ? "none" : "block";
 
         });
 
     </script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            const isLocalhost = Boolean(
-                window.location.hostname === 'localhost' ||
-                window.location.hostname === '[::1]' ||
-                window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
-            );
 
-            //if (!isLocalhost) {
-            // Ambiente de produção (GitHub Pages)
-            navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+    <script>
+         /* Verificar status da conexão e exibir mensagem offline ao carregar a página
+         document.addEventListener("DOMContentLoaded", () => {
+            const offlineMessage = document.getElementById("offline-message");
+            console.log(navigator.onLine);
+            offlineMessage.style.display = navigator.onLine ? "none" : "block";
+
+
+        });*/
+    </script>
+   <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/meumercado/service-worker.js')
+            .then(function (registration) {
                 console.log('Service Worker registrado com sucesso:', registration);
-            }).catch(function (error) {
+            })
+            .catch(function (error) {
                 console.log('Erro ao registrar o Service Worker:', error);
             });
-            //} else {
-            // Ambiente de desenvolvimento local
-            //    console.log('Este é um ambiente de desenvolvimento local. O Service Worker não será registrado.');
-            //}
-        }
+    }
+</script>
 
-    </script>
 </body>
 
 </html>
