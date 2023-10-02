@@ -1,3 +1,4 @@
+@charset "UTF-8";
 p {
   margin: 0;
   padding: 0; }
@@ -24,8 +25,8 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #66bb6a;
-  color: #ffffff;
+  background-color: #f5f5f5;
+  color: #333333;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
   z-index: 40; }
@@ -54,7 +55,7 @@ p {
 .btn-add {
   appearance: none;
   position: fixed;
-  color: white;
+  color: #ffffff;
   bottom: 30px;
   right: 30px;
   border: none;
@@ -73,9 +74,12 @@ p {
   z-index: 999; }
 
 body {
-  margin: auto;
   background-color: #ffffff;
+  margin: auto;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02); }
+
+label {
+  color: #333333; }
 
 ul,
 li {
@@ -99,18 +103,37 @@ li {
 ::-webkit-scrollbar-thumb:hover {
   background: #66bb6a; }
 
+::placeholder {
+  color: #333333;
+  opacity: 1; }
+
 .control {
   width: 100%; }
 
 button.button {
+  width: 100%;
+  color: #333333;
   appearance: none;
   border: none;
   transition: all ease-in-out 0.3s; }
-  button.button:not(.small) {
+  button.button.header {
+    color: #ffffff;
+    background-color: #2196F3; }
+  button.button:not(.headers):not(.icon) {
     width: 100%;
     background-color: #2196F3; }
+    button.button:not(.headers):not(.icon):hover {
+      background-color: #4caf50; }
   button.button.icon {
-    background-color: transparent; }
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    appearance: none;
+    text-align: right; }
+    button.button.icon.right {
+      text-align: right;
+      justify-items: end;
+      padding-right: 0; }
     button.button.icon.left {
       text-align: left;
       justify-items: start;
@@ -122,12 +145,13 @@ button.button {
   position: fixed;
   left: 0;
   top: 0;
-  background: #ffffff;
+  background-color: #ffffff;
   overflow: auto;
   z-index: 99; }
   .full-content .box-content {
     padding: 20px; }
   .full-content .subtitle {
+    color: #333333;
     font-weight: bold; }
 
 .navbar-menu {
@@ -146,8 +170,15 @@ ul li {
   border-radius: 3px;
   margin: 5px; }
 
-input, textarea, select, .input, .textarea, .select {
-  border: none; }
+input,
+textarea,
+select,
+.input,
+.textarea,
+.select {
+  border: none;
+  color: #333;
+  background-color: #f9f9f9; }
 
 .btn-add.hidden {
   animation: hideButton 0.3s ease-in-out forwards; }
@@ -180,19 +211,24 @@ input, textarea, select, .input, .textarea, .select {
 
 .close {
   position: absolute;
-  right: 20px;
-  top: 10px;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
-  font-weight: bold;
-  background: #66bb6a;
-  width: 30px;
-  height: 30px;
-  padding: 5px;
+  appearance: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  right: 20px;
+  top: 10px;
+  background: #333333;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  /* Define a altura igual à altura do elemento para centralizar verticalmente */
   border-radius: 15px; }
+  .close icon {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    top: -1px;
+    position: relative; }
 
 /* CHECKBOX */
 .c-control {
@@ -292,3 +328,106 @@ input, textarea, select, .input, .textarea, .select {
   text-align: center;
   bottom: 0;
   z-index: 999; }
+
+.navbar {
+  background-color: #ffffff; }
+
+.box-content-modal {
+  color: #ffffff;
+  background-color: #222222; }
+  .box-content-modal.active .subtitle {
+    color: #ffffff; }
+  .box-content-modal.active label.label {
+    color: #ffffff; }
+  .box-content-modal.active input,
+  .box-content-modal.active textarea,
+  .box-content-modal.active select,
+  .box-content-modal.active .input,
+  .box-content-modal.active .textarea,
+  .box-content-modal.active .select {
+    border: none;
+    color: #fff;
+    background-color: #444; }
+
+body.dark-mode {
+  color: #ffffff;
+  background-color: #333333;
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+  /* CHECKBOX */ }
+  body.dark-mode label {
+    color: #ffffff; }
+  body.dark-mode ::-webkit-scrollbar {
+    width: 8px; }
+  body.dark-mode ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; }
+  body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #42a5f5; }
+  body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #66bb6a; }
+  body.dark-mode ::placeholder {
+    color: #fff;
+    opacity: 0.4; }
+  body.dark-mode button.button {
+    color: #ffffff; }
+    body.dark-mode button.button:not(.header):not(.icon) {
+      width: 100%;
+      background-color: #42a5f5; }
+      body.dark-mode button.button:not(.header):not(.icon):hover {
+        background-color: #4caf50; }
+  body.dark-mode .full-content {
+    background-color: #333333; }
+    body.dark-mode .full-content .subtitle {
+      color: #ffffff; }
+  body.dark-mode ul li {
+    background-color: #222222; }
+  body.dark-mode input,
+  body.dark-mode textarea,
+  body.dark-mode select,
+  body.dark-mode .input,
+  body.dark-mode .textarea,
+  body.dark-mode .select {
+    border: none;
+    color: #fff;
+    background-color: #444; }
+  body.dark-mode .close {
+    background: #333333; }
+  body.dark-mode .c-control {
+    /* Create a custom checkbox */
+    /* On mouse-over, add a grey background color */
+    /* When the checkbox is checked, add a blue background */
+    /* Style the checkmark/indicator */ }
+    body.dark-mode .c-control button {
+      background-color: #333333;
+      color: #42a5f5; }
+      body.dark-mode .c-control button:hover {
+        color: #ffffff;
+        background: #4caf50; }
+    body.dark-mode .c-control .checkmark {
+      background-color: #eee; }
+    body.dark-mode .c-control label:hover input ~ .checkmark {
+      background-color: #ccc; }
+    body.dark-mode .c-control label input:checked ~ .checkmark {
+      background-color: #42a5f5;
+      background-color: #66bb6a; }
+    body.dark-mode .c-control label .checkmark:after {
+      border: solid white; }
+  body.dark-mode .foraCarrinho {
+    color: #42a5f5; }
+  body.dark-mode .carrinho {
+    color: #66bb6a; }
+  @media screen and (max-width: 1023px) {
+    body.dark-mode .navbar-menu {
+      background-color: #333333; } }
+  body.dark-mode #offline-message {
+    background-color: red;
+    color: #333333; }
+  body.dark-mode .navbar {
+    background-color: #333333; }
+  body.dark-mode .box-content-modal {
+    color: #ffffff;
+    background-color: #222222; }
+    body.dark-mode .box-content-modal.active label.label {
+      color: #ffffff; }

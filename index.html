@@ -9,13 +9,26 @@
 
     <!-- Dentro da seção head -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="manifest" href="./manifest.json">
+
+    <!-- Torna o aplicativo web executável em tela cheia no iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Meu Mercado">
-    <link rel="apple-touch-icon" href="/assets/images/AppIcon.png">
+
+    <!-- Define a cor da barra de status no Android -->
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Define a cor da barra de status no iOS -->
     <meta name="apple-mobile-web-app-status-bar" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
+    <!-- Define o estilo da barra de status no iOS como "black-translucent" para um visual translúcido -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Título exibido quando o aplicativo é adicionado à tela inicial no iOS -->
+    <meta name="apple-mobile-web-app-title" content="Meu Mercado">
+
+    <!-- Ícone do aplicativo na tela inicial do iOS -->
+    <link rel="apple-touch-icon" href="/assets/images/AppIcon.png">
+
 
 
     <link rel="stylesheet" href="./vendor/bulma/css/bulma.min.css">
@@ -28,7 +41,7 @@
 
 </head>
 
-<body>
+<body class="">
     <!-- Container principal -->
     <div class="container">
 
@@ -44,6 +57,14 @@
                         <p class="subtitle is-5">Minhas listas</p>
                     </div>
 
+                    <div class="navbar-item">
+                        <span class="icon is-large">
+                            <button class="button icon right" onclick="toggleDarkMode()">
+                                <ion-icon name="moon" class="darkModeToggle"></ion-icon>
+                            </button>
+                        </span>
+
+                    </div>
 
                 </div>
 
@@ -101,8 +122,14 @@
                         <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtual"></p>
                     </div>
 
+
                     <div class="navbar-item">
-                        <button class="button is-danger small" onclick="removerListaAtual()">Remover Lista</button>
+                        <span class="icon is-large">
+                            <button class="button icon left" onclick="toggleDarkMode()">
+                                <ion-icon name="moon" class="darkModeToggle"></ion-icon>
+                            </button>
+                        </span>
+                        <button class="button header" onclick="removerListaAtual()">Remover Lista</button>
                     </div>
                 </div>
 
@@ -141,7 +168,7 @@
 
             <!-- Modal de Edição/Adição de Item -->
             <div class="box-content-modal" style="text-align: center;">
-                <div class="close">&times;</div>
+                <div class="close"><icon>&times;</icon></div>
                 <div class="x-panel-mobile"></div>
                 <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtualModal"></p>
                 <div class="content">
@@ -596,6 +623,30 @@
             // Remova a classe "hidden" e adicione a classe "show" para mostrar o botão "btn-add"
             $(".btn-add").removeClass("hidden").addClass("show");
         }
+        // Função para alternar o modo claro/escuro
+        function toggleDarkMode() {
+            const isDarkMode = $('body').toggleClass('dark-mode').hasClass('dark-mode');
+
+            // Obtenha a cor de fundo atual
+            const backgroundColor = $('body').css('background-color');
+
+            // Atualize a cor da barra de status
+            $('meta[name="theme-color"]').attr('content', isDarkMode ? '#333333' : backgroundColor);
+
+            // Atualize a cor do tema
+            $('meta[name="apple-mobile-web-app-status-bar-style"]').attr('content', isDarkMode ? 'default' : 'black-translucent');
+
+            // Atualize o ícone do modo claro/escuro
+            const darkModeToggle = $('.darkModeToggle');
+            if (isDarkMode) {
+                darkModeToggle.attr('name', 'sunny');
+            } else {
+                darkModeToggle.attr('name', 'moon');
+            }
+
+            // Armazene a preferência do usuário no Local Storage
+            localStorage.setItem('darkMode', isDarkMode);
+        }
 
 
         // Carregar a lista de listas quando a página é carregada
@@ -608,15 +659,15 @@
                 iniciarEdicaoOuAdicao();
             })
 
-           
+
             const offlineMessage = $("#offline-message");
             const pageContent = $(".full-content");
-            console.log('teste',navigator.onLine);
-            if(navigator.onLine){
-                offlineMessage.css("display","none");
-            }else{
+            console.log('teste', navigator.onLine);
+            if (navigator.onLine) {
+                offlineMessage.css("display", "none");
+            } else {
                 offlineMessage.css("display", "block");
-                pageContent.css("padding-bottom","30px");
+                pageContent.css("padding-bottom", "30px");
             }
 
             //offlineMessage.style.display = navigator.onLine ? "none" : "block";
@@ -626,26 +677,26 @@
     </script>
 
     <script>
-         /* Verificar status da conexão e exibir mensagem offline ao carregar a página
-         document.addEventListener("DOMContentLoaded", () => {
-            const offlineMessage = document.getElementById("offline-message");
-            console.log(navigator.onLine);
-            offlineMessage.style.display = navigator.onLine ? "none" : "block";
+        /* Verificar status da conexão e exibir mensagem offline ao carregar a página
+        document.addEventListener("DOMContentLoaded", () => {
+           const offlineMessage = document.getElementById("offline-message");
+           console.log(navigator.onLine);
+           offlineMessage.style.display = navigator.onLine ? "none" : "block";
 
 
-        });*/
+       });*/
     </script>
-   <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/meumercado/service-worker.js')
-            .then(function (registration) {
-                console.log('Service Worker registrado com sucesso:', registration);
-            })
-            .catch(function (error) {
-                console.log('Erro ao registrar o Service Worker:', error);
-            });
-    }
-</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/meumercado/service-worker.js')
+                .then(function (registration) {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                })
+                .catch(function (error) {
+                    console.log('Erro ao registrar o Service Worker:', error);
+                });
+        }
+    </script>
 
 </body>
 
