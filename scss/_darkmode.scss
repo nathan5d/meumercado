@@ -1,0 +1,162 @@
+body.dark-mode {
+
+    color: $dark-text;
+    background-color: $dark-bg;
+
+
+    label {
+        color: $dark-text;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $dark-primary;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: $dark-secondary;
+    }
+
+    ::placeholder {
+        color: $dark-input-text;
+        opacity: 0.4;
+    }
+
+    button.button {
+        color: $dark-text;
+
+        &:not(.header):not(.icon) {
+            width: 100%;
+            background-color: $dark-primary;
+
+            &:hover {
+                background-color: $dark-success;
+            }
+        }
+    }
+
+
+    .full-content {
+        background-color: $dark-bg;
+
+        .subtitle {
+            color: $dark-text;
+        }
+    }
+
+    ul {
+        li {
+            background-color: $dark-list-bg;
+        }
+    }
+
+    input,
+    textarea,
+    select,
+    .input,
+    .textarea,
+    .select {
+        border: none;
+        color: $dark-input-text;
+        background-color: $dark-input-bg;
+    }
+
+
+
+
+    .close {
+
+        background: $dark-bg;
+
+    }
+
+
+
+    /* CHECKBOX */
+    .c-control {
+        button {
+
+            background-color: $dark-bg;
+            color: $dark-primary;
+
+            &:hover {
+                color: $dark-text;
+                background: $dark-success;
+
+            }
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+
+            background-color: #eee;
+        }
+
+        /* On mouse-over, add a grey background color */
+        label:hover input~.checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        label input:checked~.checkmark {
+            background-color: $dark-primary;
+            background-color: $dark-secondary;
+        }
+
+
+
+        /* Style the checkmark/indicator */
+        label .checkmark:after {
+
+            border: solid white;
+        }
+    }
+
+    .foraCarrinho {
+        color: $dark-primary;
+    }
+
+    .carrinho {
+        color: $dark-secondary;
+    }
+
+    @media screen and (max-width: 1023px) {
+        .navbar-menu {
+            background-color: $dark-bg;
+        }
+    }
+
+
+    #offline-message {
+        background-color: red;
+        color: $dark-bg;
+    }
+
+    .navbar {
+        background-color: $dark-bg;
+    }
+
+    .box-content {
+        &-modal {
+            color: $dark-text;
+            background-color: $dark-list-bg;
+
+            &.active {
+                label.label {
+                    color: $dark-text;
+                }
+            }
+        }
+    }
+}
