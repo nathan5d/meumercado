@@ -244,19 +244,62 @@
         }
 
         // Função para listar todas as listas disponíveis
+        // Função para listar todas as listas disponíveis
+        // Função para listar todas as listas disponíveis
         function listarListas() {
+            // Obtém as listas do Local Storage ou cria uma lista vazia se não existir
             const listas = JSON.parse(localStorage.getItem("listas")) || [];
+
+            // Seleciona o elemento <ul> com o ID "listas"
             const listasUl = $("#listas");
+
+            // Limpa o conteúdo atual da lista antes de atualizá-lo
             listasUl.html("");
 
+            // Itera sobre cada lista e cria um item de lista (<li>) para cada uma
             $.each(listas, function (index, lista) {
-                const listItem = $("<li>").text(lista);
+                const listItem = $("<li>");
+
+                const listContainer = $("<div>").addClass("c-control")
+                const listNome = $("<large>").addClass('subtitle').text(lista);
+
+                listContainer.append(listNome);
+                listItem.append(listContainer);
+
+                // Adiciona um evento de clique ao item da lista para mostrar a lista
                 listItem.click(function () {
                     mostrarLista(lista);
                 });
+
+                // Obtém a lista de itens para a lista atual
+                let listaItens = JSON.parse(localStorage.getItem(lista));
+
+
+                // Verifica se listaItens.items é um array; se não, cria um array vazio
+                if (!Array.isArray(listaItens.items)) {
+                    listaItens.items = [];
+                }
+                // Calcula a contagem de itens marcados, não marcados e o total
+                const itensMarcados = listaItens.items.filter(item => item.selecionado).length;
+                const itensNaoMarcados = listaItens.items.filter(item => !item.selecionado).length;
+                const totalItens = listaItens.items.length;
+
+                // Cria um elemento <span> para exibir as contagens
+                // const contagemItens = $("<span>").text(`${itensMarcados}/${itensNaoMarcados} | Total: ${totalItens}`);
+                const contagemItens = $("<span>").text(`${itensMarcados}/${totalItens}`);
+
+                // Adiciona a contagem de itens ao item da lista
+                listItem.append(contagemItens);
+
+                // Adiciona o item da lista à lista não ordenada (<ul>)
                 listasUl.append(listItem);
             });
         }
+
+        // Chama a função inicialmente para listar as listas disponíveis
+        //listarListas();
+
+
 
         function ocultarLista() {
             const camposAdicionarItem = $("#camposAdicionarItem");
@@ -285,7 +328,7 @@
             $.each(lista.items, function (index, item) {
                 const controlContainer = $("<div>").addClass("c-control");
                 const checkboxContainer = $("<div>");
-                const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
+                const checkboxLabel = $("<label>").addClass("subtitle").text(item.nome).attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
                     class: "item-checkbox",
