@@ -58,6 +58,7 @@ body.dark-mode {
     ul {
         li {
             background-color: $dark-list-bg;
+            border-left: 3px solid $dark-accent;
         }
     }
 
@@ -119,7 +120,7 @@ body.dark-mode {
         /* Style the checkmark/indicator */
         label .checkmark:after {
 
-            border: solid white;
+           // border: solid white;
         }
     }
 

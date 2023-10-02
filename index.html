@@ -168,7 +168,9 @@
 
             <!-- Modal de Edição/Adição de Item -->
             <div class="box-content-modal" style="text-align: center;">
-                <div class="close"><icon>&times;</icon></div>
+                <div class="close">
+                    <icon>&times;</icon>
+                </div>
                 <div class="x-panel-mobile"></div>
                 <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtualModal"></p>
                 <div class="content">
@@ -623,18 +625,48 @@
             // Remova a classe "hidden" e adicione a classe "show" para mostrar o botão "btn-add"
             $(".btn-add").removeClass("hidden").addClass("show");
         }
-        // Função para alternar o modo claro/escuro
-        function toggleDarkMode() {
-            const isDarkMode = $('body').toggleClass('dark-mode').hasClass('dark-mode');
+
+
+        // Função para aplicar o modo escuro ou claro
+        function applyDarkMode(isDarkMode) {
+            const body = $('body');
 
             // Obtenha a cor de fundo atual
-            const backgroundColor = $('body').css('background-color');
+            const backgroundColor = body.css('background-color');
 
             // Atualize a cor da barra de status
             $('meta[name="theme-color"]').attr('content', isDarkMode ? '#333333' : backgroundColor);
 
             // Atualize a cor do tema
             $('meta[name="apple-mobile-web-app-status-bar-style"]').attr('content', isDarkMode ? 'default' : 'black-translucent');
+
+            // Atualize o ícone do modo claro/escuro
+            const darkModeToggle = $('.darkModeToggle');
+            if (isDarkMode) {
+                darkModeToggle.attr('name', 'sunny');
+            } else {
+                darkModeToggle.attr('name', 'moon');
+            }
+
+            // Aplicar classe dark-mode ao body se o modo escuro estiver ativado
+            if (isDarkMode) {
+                body.addClass('dark-mode');
+            } else {
+                body.removeClass('dark-mode');
+            }
+
+            // Armazene a preferência do usuário no Local Storage
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+
+        // Função para alternar o modo claro/escuro
+        function toggleDarkMode() {
+
+
+            const body = $('body');
+            const isDarkMode = body.toggleClass('dark-mode').hasClass('dark-mode');
+            applyDarkMode(isDarkMode);
 
             // Atualize o ícone do modo claro/escuro
             const darkModeToggle = $('.darkModeToggle');
@@ -651,6 +683,12 @@
 
         // Carregar a lista de listas quando a página é carregada
         $(document).ready(function () {
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === 'true') {
+                // Se o modo escuro estiver salvo, aplique-o
+                applyDarkMode(true);
+            }
+
             listarListas();
             $('.box-content-modal .x-panel-mobile,.close').on('click', function () {
                 fecharModal();
