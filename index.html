@@ -141,12 +141,6 @@
 
             <!-- Lista de itens com estilo iOS -->
 
-            <div class="box-content-header">
-                <span class="box-content-title" id="nomeListaAtual">Itens da Lista</span>
-                <button class="btn-add show">
-                    <icon>+</icon>
-                </button>
-            </div>
 
             <div class="box-content">
                 <ul id="lista">
@@ -171,43 +165,51 @@
                 </div>
             </div>
 
-            <!-- Modal de Edição/Adição de Item -->
-            <div class="box-content-modal" style="text-align: center;">
-                <div class="close">
-                    <icon>&times;</icon>
+
+        </div>
+        <!-- Modal de Edição/Adição de Item -->
+
+        <div class="box-content-header">
+            <span class="box-content-title" id="nomeListaAtual">Itens da Lista</span>
+            <button class="btn-add show">
+                <icon>+</icon>
+            </button>
+        </div>
+        <div class="box-content-modal" style="text-align: center;">
+            <div class="close">
+                <icon>&times;</icon>
+            </div>
+            <div class="x-panel-mobile"></div>
+            <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtualModal"></p>
+            <div class="content">
+                <!-- Campos e botões com estilo iOS para editar/adicionar itens -->
+                <div class="field">
+                    <label class="label">Nome do Item</label>
+                    <div class="control">
+                        <input class="input" type="text" id="editItem" placeholder="Nome do Item">
+                    </div>
                 </div>
-                <div class="x-panel-mobile"></div>
-                <p class="subtitle is-5 nome-lista-atual" id="nomeListaAtualModal"></p>
-                <div class="content">
-                    <!-- Campos e botões com estilo iOS para editar/adicionar itens -->
-                    <div class="field">
-                        <label class="label">Nome do Item</label>
-                        <div class="control">
-                            <input class="input" type="text" id="editItem" placeholder="Nome do Item">
-                        </div>
+                <div class="field">
+                    <label class="label">Quantidade</label>
+                    <div class="control">
+                        <input class="input" type="number" id="editQuantidade" placeholder="Quantidade">
                     </div>
-                    <div class="field">
-                        <label class="label">Quantidade</label>
-                        <div class="control">
-                            <input class="input" type="number" id="editQuantidade" placeholder="Quantidade">
-                        </div>
+                </div>
+                <div class="field">
+                    <label class="label">Preço</label>
+                    <div class="control">
+                        <input class="input" type="number" id="editPreco" placeholder="Preço">
                     </div>
-                    <div class="field">
-                        <label class="label">Preço</label>
-                        <div class="control">
-                            <input class="input" type="number" id="editPreco" placeholder="Preço">
-                        </div>
+                </div>
+                <div class="field">
+                    <label class="label">Unidade</label>
+                    <div class="control">
+                        <input class="input" type="text" id="editUnidade" placeholder="Unidade">
                     </div>
-                    <div class="field">
-                        <label class="label">Unidade</label>
-                        <div class="control">
-                            <input class="input" type="text" id="editUnidade" placeholder="Unidade">
-                        </div>
-                    </div>
-                    <div class="field is-grouped">
-                        <div class="control">
-                            <button class="button is-primary" id="editarItemBtn" onclick="editarItem()">Salvar</button>
-                        </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-primary" id="editarItemBtn" onclick="editarItem()">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -329,13 +331,15 @@
 
         function ocultarLista() {
             const camposAdicionarItem = $("#camposAdicionarItem");
-            // camposAdicionarItem.hide();
-            reloadPage();
+            camposAdicionarItem.hide();
+            listarListas();
+            //mostr
+            //reloadPage();
         }
 
         // Função para mostrar uma lista específica
         function mostrarLista(nomeLista) {
-
+            $(".btn-add").addClass("show").removeClass("hidden");
             const nomeListaAtual = $("#nomeListaAtual");
             nomeListaAtual.text(nomeLista);
 
@@ -535,6 +539,8 @@
             $("#nomeListaAtualModal").text(""); // Limpe o texto do modal
             //$(".box-content-modal").removeClass("active"); // Feche o modal
             fecharModal();
+            // Após adicionar conteúdo, chame a função para ajustar a posição do modal
+            ajustarPosicaoModal();
         }
         // Função para remover a lista atual
         function removerListaAtual() {
@@ -796,8 +802,12 @@
             location.reload();
         }
 
+       
+
+
         // Carregar a lista de listas quando a página é carregada
         $(document).ready(function () {
+            $(".btn-add").addClass("hidden").removeClass("show");
             $('.full-content.list').removeClass('hidden');
             $('#loading-overlay').css('display', 'none');
             const savedDarkMode = localStorage.getItem('darkMode');
@@ -827,7 +837,9 @@
 
             //offlineMessage.style.display = navigator.onLine ? "none" : "block";
 
+
         });
+
 
     </script>
 

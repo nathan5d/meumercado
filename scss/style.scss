@@ -2,6 +2,9 @@
 @import 'reset';
 @import 'modal';
 
+html,body{
+    height: 100%;
+}
 //.dark-mode{
 @import 'lightmode';
 

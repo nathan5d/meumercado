@@ -5,14 +5,13 @@ p {
 
 .box-content-modal {
   display: none;
-  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   padding: 20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  bottom: -100%;
+  bottom: 0;
   transition: bottom 0.3s ease-in-out;
   left: 0;
   width: 100%;
@@ -28,7 +27,7 @@ p {
   color: #333333;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
-  z-index: 40; }
+  z-index: 999; }
   .box-content-modal.active {
     display: block;
     transform: translateY(0%); }
@@ -76,6 +75,9 @@ p {
   .btn-add icon {
     top: -1px;
     position: relative; }
+
+html, body {
+  height: 100%; }
 
 body {
   background-color: #ffffff;
