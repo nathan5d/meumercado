@@ -133,9 +133,11 @@
                                 <ion-icon name="moon" class="darkModeToggle"></ion-icon>
                             </button>
                         </span>
+                        
 
                         <button class="button header" onclick="removerListaAtual()">Remover Lista</button>
                     </div>
+                    
                 </div>
 
             </nav>
@@ -148,23 +150,22 @@
                 <span class="box-content-title" id="nomeListaAtual">Itens da Lista</span>
 
                 <div>
+                    
                     <button class="button header" id="botaoExportar">Exportar</button>
 
-                    <div class="file has-name is-fullwidth">
+                    <div class="file is-normal  is-fullwidth">
                         <label class="file-label">
-                          <input class="file-input" id="fileInput" type="file" name="resume">
-                          <span class="file-cta">
-                            <span class="file-icon">
-                              <i class="fas fa-upload"></i>
+                            <input class="file-input" id="fileInput" type="file" name="resume">
+                            <span class="file-cta" style="width: 100%;">
+                               
+                                <span class="file-label">
+                                    Importar
+                                </span>
                             </span>
-                            <span class="file-label">
-                              Choose a file…
-                            </span>
-                          </span>
-                          <span class="file-name">
-                          </span>
                         </label>
-                      </div>
+                    </div>
+
+                  
                 </div>
             </div>
             <div class="box-content">
@@ -418,7 +419,7 @@
                 // listItem.append(editButton);
                 actionsContainer.append(editButton);
 
-                const deleteButton = $("<button>").text("Excluir");
+                const deleteButton = $("<button>").addClass('is-danger').text("Excluir");
                 deleteButton.click(function () {
                     excluirItem(nomeLista, index); // Chame a função para excluir o item
                 });

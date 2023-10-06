@@ -303,6 +303,7 @@ select,
   /* Show the checkmark when checked */
   /* Style the checkmark/indicator */ }
   .c-control button {
+    margin: 0 2px;
     padding: 10px 20px;
     border-radius: 8px;
     border: none;
@@ -430,6 +431,21 @@ select,
   transition: opacity 0.3s ease, transform 0.3s ease; }
   .full-content.list.hidden {
     transform: translateX(100%); }
+
+.file-cta {
+  width: 100%;
+  justify-content: center;
+  color: #ffffff;
+  background-color: #ff9800;
+  border: none;
+  margin-top: 8px; }
+
+.file-label {
+  justify-content: center; }
+  .file-label:hover .file-cta {
+    color: #ffffff;
+    background-color: #ff9800;
+    opacity: 0.9; }
 
 body.dark-mode {
   color: #ffffff;
