@@ -126,71 +126,75 @@
                         <label class="subtitle nome-lista-atual" for="toback">Voltar</label>
                     </div>
 
+                   
                     <div class="navbar-item">
-                        <span class="icon is-large">
-                            <button class="button icon" onclick="toggleDarkMode()">
-                                <span class="icon">
-                                    <ion-icon name="moon" class="darkModeToggle"></ion-icon>
-                                </span>
-                            </button>
-                        </span>
-
-                        <!-- Dropdown para opções de importação e exportação -->
-                        <div class="dropdown is-right is-hoverable">
-                            <div class="dropdown-trigger">
-                                <button class="button icon" aria-haspopup="true" aria-controls="dropdown-menu">
-
+                        <div class="navbar-item">
+                            <span class="icon is-large">
+                                <button class="button icon" onclick="toggleDarkMode()">
                                     <span class="icon">
-                                        <ion-icon name="ios-menu"></ion-icon>
+                                        <ion-icon name="moon" class="darkModeToggle"></ion-icon>
                                     </span>
                                 </button>
-                            </div>
-                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                                <div class="dropdown-content">
-                                    <div class="dropdown-item">
-                                        <div class="file is-normal is-fullwidth">
-                                            <label class="file-label">
-                                                <input class="file-input" id="fileInput" type="file" name="resume"
-                                                    onchange="importarLista()">
-                                                <span class="file-cta" style="width: 100%;">
-                                                    <span class="file-label">
-                                                        <span class="icon">
-                                                             <ion-icon name="ios-cloud-upload"></ion-icon>
+                            </span>
+    
+                        </div>
+                        <!-- Dropdown para opções de importação e exportação -->
+                        <div class="navbar-item">
+                            <!-- Dropdown para opções de importação e exportação -->
+                            <div class="dropdown is-right" id="dropdown-options">
+                                <div class="dropdown-trigger">
+                                    <button class="button icon" id="dropdownButton" aria-hidden="true" aria-haspopup="true"
+                                        aria-controls="dropdown-menu">
+                                        <span class="icon">
+                                            <ion-icon name="ios-menu"></ion-icon>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                    <div class="dropdown-content">
+                                        <div class="dropdown-item">
+                                            <div class="file is-normal is-fullwidth">
+                                                <label class="file-label">
+                                                    <input class="file-input" id="fileInput" type="file" name="resume"
+                                                        onchange="importarLista()">
+                                                    <span class="file-cta" style="width: 100%;">
+                                                        <span class="file-label">
+                                                            <span class="icon">
+                                                                <ion-icon name="ios-cloud-upload"></ion-icon>
+                                                            </span>
+                                                            <span> Importar</span>
                                                         </span>
-                                                      <span> Importar</span>
                                                     </span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="dropdown-item">
+                                            <button class="button header" onclick="exportarLista()">
+                                                <span class="icon">
+                                                    <ion-icon name="ios-cloud-download"></ion-icon>
                                                 </span>
-                                            </label>
+                                                <span>
+                                                    Exportar
+                                                </span>
+                                            </button>
+                                        </div>
+
+                                        <div class="dropdown-item">
+                                            <button class="button is-danger" onclick="removerListaAtual()">
+                                                <span class="icon">
+                                                    <ion-icon name="ios-close"></ion-icon>
+                                                </span>
+                                                <span>
+                                                    Remover Lista
+                                                </span>
+                                            </button>
                                         </div>
                                     </div>
-
-                                    <div class="dropdown-item">
-                                        <button class="button header" onclick="exportarLista()">
-                                            <span class="icon">
-                                                <ion-icon name="ios-cloud-download"></ion-icon>
-                                           </span>
-                                           <span>
-                                             Exportar
-                                           </span>
-                                           
-                                        </button>
-                                    </div>
-
-                                    <div class="dropdown-item">
-                                        <button class="button is-danger" onclick="removerListaAtual()">
-                                            <span class="icon">
-                                                <ion-icon name="ios-close"></ion-icon>
-                                           </span>
-                                         <span>
-                                            Remover Lista
-                                        </span>
-                                        </button>
-                                    </div>
-
-
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -1012,12 +1016,17 @@
             /* EXPORTAR / IMPORTAR */
 
             // Exemplo de como chamar a função de exportação ao clicar em um botão
-            $("#botaoExportar").click(function () {
+            $("#botaoExportar").on('click', function () {
                 const nomeListaAtual = $("#nomeListaAtual").text();
                 exportarItensDaLista(nomeListaAtual);
             });
 
+            $("#dropdownButton").on('click',function () {
+                // Toggle a classe "is-active" no menu dropdown usando jQuery
+                $("#dropdown-options").toggleClass("is-active");
+            });
 
+           
 
             /* EXPORTAR / IMPORTAR */
 
