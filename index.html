@@ -57,6 +57,7 @@
                     <div class="navbar-item">
 
                         <label class="title">Minhas listas</label>
+
                     </div>
 
                     <div class="navbar-item">
@@ -132,6 +133,7 @@
                                 <ion-icon name="moon" class="darkModeToggle"></ion-icon>
                             </button>
                         </span>
+
                         <button class="button header" onclick="removerListaAtual()">Remover Lista</button>
                     </div>
                 </div>
@@ -142,6 +144,29 @@
             <!-- Lista de itens com estilo iOS -->
 
 
+            <div class="box-content-header">
+                <span class="box-content-title" id="nomeListaAtual">Itens da Lista</span>
+
+                <div>
+                    <button class="button header" id="botaoExportar">Exportar</button>
+
+                    <div class="file has-name is-fullwidth">
+                        <label class="file-label">
+                          <input class="file-input" id="fileInput" type="file" name="resume">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                              Choose a file…
+                            </span>
+                          </span>
+                          <span class="file-name">
+                          </span>
+                        </label>
+                      </div>
+                </div>
+            </div>
             <div class="box-content">
                 <ul id="lista">
                     <!-- Itens da lista serão adicionados aqui -->
@@ -168,13 +193,9 @@
 
         </div>
         <!-- Modal de Edição/Adição de Item -->
-
-        <div class="box-content-header">
-            <span class="box-content-title" id="nomeListaAtual">Itens da Lista</span>
-            <button class="btn-add show">
-                <icon>+</icon>
-            </button>
-        </div>
+        <button class="btn-add show">
+            <icon>+</icon>
+        </button>
         <div class="box-content-modal" style="text-align: center;">
             <div class="close">
                 <icon>&times;</icon>
@@ -385,6 +406,8 @@
                 controlContainer.append(checkboxContainer);
                 const listItem = $("<li>").append(controlContainer);
 
+                const actionsContainer = $('<div>');
+
                 listaUl.append(listItem);
 
                 const editButton = $("<button>").text("Editar");
@@ -393,7 +416,16 @@
                 });
 
                 // listItem.append(editButton);
-                controlContainer.append(editButton);
+                actionsContainer.append(editButton);
+
+                const deleteButton = $("<button>").text("Excluir");
+                deleteButton.click(function () {
+                    excluirItem(nomeLista, index); // Chame a função para excluir o item
+                });
+
+                actionsContainer.append(deleteButton);
+                controlContainer.append(actionsContainer);
+
                 // Adicionar eventos para marcar/desmarcar os itens
                 checkbox.change(function () {
                     const isChecked = this.checked;
@@ -542,6 +574,29 @@
             // Após adicionar conteúdo, chame a função para ajustar a posição do modal
             ajustarPosicaoModal();
         }
+
+        // Função para excluir um item da lista
+        function excluirItem(nomeLista, index) {
+            // Obtenha a lista atual do Local Storage
+            const listaAtual = JSON.parse(localStorage.getItem(nomeLista));
+
+            // Verifique se a lista existe
+            if (listaAtual && Array.isArray(listaAtual.items)) {
+                // Remova o item pelo índice
+                listaAtual.items.splice(index, 1);
+
+                // Salve a lista atualizada no Local Storage
+                localStorage.setItem(nomeLista, JSON.stringify(listaAtual));
+
+                // Atualize a interface do usuário ou realize outras ações necessárias
+                console.log('Item excluído com sucesso.');
+
+                // Atualize a lista de itens na interface do usuário
+                mostrarLista(nomeLista);
+            }
+        }
+
+
         // Função para remover a lista atual
         function removerListaAtual() {
             const nomeListaAtual = $("#nomeListaAtual").text();
@@ -802,11 +857,90 @@
             location.reload();
         }
 
-       
 
+
+
+        /* here */
+        // Função para exportar itens de uma lista específica
+        function exportarItensDaLista(nomeLista) {
+            // Obtenha a lista atual do Local Storage
+            const lista = JSON.parse(localStorage.getItem(nomeLista));
+
+            if (lista && lista.items && lista.items.length > 0) {
+                const dadosParaExportar = {
+                    items: lista.items
+                };
+
+                // Crie um objeto Blob para o arquivo JSON
+                const blob = new Blob([JSON.stringify(dadosParaExportar)], { type: 'application/json' });
+
+                // Crie um URL do Blob
+                const url = URL.createObjectURL(blob);
+
+                // Crie um link para o URL do Blob e defina atributos para o download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'itens_exportados.json';
+
+                // Clique automaticamente no link para iniciar o download
+                a.click();
+
+                // Libere o URL do Blob após o download
+                URL.revokeObjectURL(url);
+            } else {
+                console.error('A lista está vazia ou não existe.');
+            }
+        }
+
+        // Use JavaScript para lidar com o evento de seleção de arquivo
+        document.getElementById('fileInput').addEventListener('change', function (event) {
+            var arquivo = event.target.files[0];
+            importarItensDoArquivo(arquivo);
+        });
+
+        // Função para importar itens de um arquivo JSON e adicionar à lista especificada pelo usuário
+        // Função para importar itens de um arquivo JSON e adicionar à lista atual
+        function importarItensDoArquivo(arquivo) {
+            const leitor = new FileReader();
+
+            leitor.onload = function (e) {
+                const itensImportados = JSON.parse(e.target.result);
+
+                if (itensImportados && Array.isArray(itensImportados.items)) {
+                    // Obtenha o nome da lista atual do elemento HTML
+                    const nomeListaAtual = $("#nomeListaAtual").text().trim();
+
+                    if (nomeListaAtual !== '') {
+                        // Obtenha a lista atual do Local Storage ou crie uma nova lista vazia
+                        const listaAtual = JSON.parse(localStorage.getItem(nomeListaAtual)) || { items: [] };
+
+                        // Adicione os itens importados à lista atual
+                        listaAtual.items = listaAtual.items.concat(itensImportados.items);
+
+                        // Salve a lista atualizada no Local Storage
+                        localStorage.setItem(nomeListaAtual, JSON.stringify(listaAtual));
+
+                        // Atualize a interface do usuário ou realize outras ações necessárias
+                        console.log('Itens importados com sucesso:', itensImportados.items);
+
+                        // Atualize a lista de listas disponíveis
+                        listarListas();
+                        mostrarLista(nomeListaAtual);
+                    } else {
+                        console.error('Nome da lista atual não encontrado.');
+                    }
+                } else {
+                    console.error('Dados de importação inválidos.');
+                }
+            };
+
+            leitor.readAsText(arquivo);
+        }
 
         // Carregar a lista de listas quando a página é carregada
         $(document).ready(function () {
+
+
             $(".btn-add").addClass("hidden").removeClass("show");
             $('.full-content.list').removeClass('hidden');
             $('#loading-overlay').css('display', 'none');
@@ -837,6 +971,19 @@
 
             //offlineMessage.style.display = navigator.onLine ? "none" : "block";
 
+
+
+            /* EXPORTAR / IMPORTAR */
+
+            // Exemplo de como chamar a função de exportação ao clicar em um botão
+            $("#botaoExportar").click(function () {
+                const nomeListaAtual = $("#nomeListaAtual").text();
+                exportarItensDaLista(nomeListaAtual);
+            });
+
+
+
+            /* EXPORTAR / IMPORTAR */
 
         });
 
