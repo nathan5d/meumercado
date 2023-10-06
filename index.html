@@ -126,7 +126,6 @@
                         <label class="subtitle nome-lista-atual" for="toback">Voltar</label>
                     </div>
 
-                   
                     <div class="navbar-item">
                         <div class="navbar-item">
                             <span class="icon is-large">
@@ -136,15 +135,15 @@
                                     </span>
                                 </button>
                             </span>
-    
+
                         </div>
                         <!-- Dropdown para opções de importação e exportação -->
                         <div class="navbar-item">
                             <!-- Dropdown para opções de importação e exportação -->
                             <div class="dropdown is-right" id="dropdown-options">
                                 <div class="dropdown-trigger">
-                                    <button class="button icon" id="dropdownButton" aria-hidden="true" aria-haspopup="true"
-                                        aria-controls="dropdown-menu">
+                                    <button class="button icon" id="dropdownButton" aria-hidden="true"
+                                        aria-haspopup="true" aria-controls="dropdown-menu">
                                         <span class="icon">
                                             <ion-icon name="ios-menu"></ion-icon>
                                         </span>
@@ -430,6 +429,12 @@
                     "data-index": index
                 });
 
+                // Aplicar estilos CSS para o nome do item
+                checkboxLabel.css({
+                    maxWidth: "150px", // Defina a largura máxima desejada
+                    wordWrap: "break-word", // Quebra de linha de palavras longas
+                    overflow: "hidden", // Oculta o texto que não cabe
+                });
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
 
@@ -1021,12 +1026,12 @@
                 exportarItensDaLista(nomeListaAtual);
             });
 
-            $("#dropdownButton").on('click',function () {
+            $("#dropdownButton").on('click', function () {
                 // Toggle a classe "is-active" no menu dropdown usando jQuery
                 $("#dropdown-options").toggleClass("is-active");
             });
 
-           
+
 
             /* EXPORTAR / IMPORTAR */
 
