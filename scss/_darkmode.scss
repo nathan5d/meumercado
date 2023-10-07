@@ -147,6 +147,12 @@ body.dark-mode {
 
             background-color: $dark-bg;
             color: $dark-primary;
+            &.is{
+                &-danger{
+                    color: $dark-text;
+                    background-color: $light-error;
+                }
+            }
 
             &:hover {
                 color: $dark-text;
@@ -217,4 +223,29 @@ body.dark-mode {
             }
         }
     }
+
+
+.dropdown{
+    &-content{
+        background-color: $dark-bg;
+    }
+}
+
+.file {
+    &-cta {
+        color: $dark-text;
+        background-color: $dark-accent;
+
+    }
+
+    &-label {
+        &:hover {
+            .file-cta {
+                color: $dark-text;
+                background-color: $dark-accent;
+            }
+        }
+    }
+
+}
 }

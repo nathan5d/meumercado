@@ -303,6 +303,7 @@ select,
   /* Show the checkmark when checked */
   /* Style the checkmark/indicator */ }
   .c-control button {
+    cursor: pointer;
     margin: 0 2px;
     padding: 10px 20px;
     border-radius: 8px;
@@ -312,6 +313,9 @@ select,
     background-color: #efefef;
     color: #2196F3;
     transition: all ease-in-out 0.3s; }
+    .c-control button.is-danger {
+      color: #ffffff;
+      background-color: #f44336; }
     .c-control button:hover {
       color: #ffffff;
       background: #66bb6a; }
@@ -432,6 +436,9 @@ select,
   .full-content.list.hidden {
     transform: translateX(100%); }
 
+.dropdown-content {
+  background-color: #ffffff; }
+
 .file-cta {
   width: 100%;
   justify-content: center;
@@ -523,6 +530,9 @@ body.dark-mode {
     body.dark-mode .c-control button {
       background-color: #333333;
       color: #42a5f5; }
+      body.dark-mode .c-control button.is-danger {
+        color: #ffffff;
+        background-color: #f44336; }
       body.dark-mode .c-control button:hover {
         color: #ffffff;
         background: #4caf50; }
@@ -550,3 +560,11 @@ body.dark-mode {
     background-color: #333333; }
     body.dark-mode .box-content-modal.active label.label {
       color: #ffffff; }
+  body.dark-mode .dropdown-content {
+    background-color: #333333; }
+  body.dark-mode .file-cta {
+    color: #ffffff;
+    background-color: #ff9800; }
+  body.dark-mode .file-label:hover .file-cta {
+    color: #ffffff;
+    background-color: #ff9800; }

@@ -305,6 +305,7 @@ select,
     position: relative;
 
     button {
+        cursor: pointer;
         margin: 0 2px;
         padding: 10px 20px;
         border-radius: 8px;
@@ -315,6 +316,12 @@ select,
         color: #2196F3;
         transition: all ease-in-out 0.3s;
 
+        &.is{
+            &-danger{
+                color: $dark-text;
+                background-color: $light-error;
+            }
+        }
         &:hover {
             color: $white;
             background: $secondary;
@@ -496,6 +503,12 @@ select,
 
 }
 
+
+.dropdown{
+    &-content{
+        background-color: $light-bg;
+    }
+}
 .file {
     &-cta {
         width: 100%;

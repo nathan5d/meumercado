@@ -701,6 +701,13 @@
                     "data-index": index
                 });
 
+                 // Aplicar estilos CSS para o nome do item
+                 checkboxLabel.css({
+                    maxWidth: "150px", // Defina a largura máxima desejada
+                    wordWrap: "break-word", // Quebra de linha de palavras longas
+                    overflow: "hidden", // Oculta o texto que não cabe
+                });
+
 
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
@@ -718,6 +725,8 @@
                 controlContainer.append(checkboxContainer);
                 const listItem = $("<li>").append(controlContainer);
 
+                 const actionsContainer = $('<div>');
+
                 listaUl.append(listItem);
 
                 const editButton = $("<button>").text("Editar");
@@ -726,7 +735,15 @@
                 });
 
                 // listItem.append(editButton);
-                controlContainer.append(editButton);
+                actionsContainer.append(editButton);
+
+                const deleteButton = $("<button>").addClass('is-danger').text("Excluir");
+                deleteButton.click(function () {
+                    excluirItem(nomeLista, index); // Chame a função para excluir o item
+                });
+
+                actionsContainer.append(deleteButton);
+                controlContainer.append(actionsContainer);
 
                 // Função para atualizar os totais
                 function atualizaTotais(lista) { // Receba a lista como argumento
