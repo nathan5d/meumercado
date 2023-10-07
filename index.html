@@ -155,7 +155,7 @@
                                             <div class="file is-normal is-fullwidth">
                                                 <label class="file-label">
                                                     <input class="file-input" id="fileInput" type="file" name="resume"
-                                                        onchange="importarLista()">
+                                                        >
                                                     <span class="file-cta" style="width: 100%;">
                                                         <span class="file-label">
                                                             <span class="icon">
@@ -169,7 +169,7 @@
                                         </div>
 
                                         <div class="dropdown-item">
-                                            <button class="button header" onclick="exportarLista()">
+                                            <button class="button header" id="botaoExportar">
                                                 <span class="icon">
                                                     <ion-icon name="ios-cloud-download"></ion-icon>
                                                 </span>
@@ -942,7 +942,7 @@
                 // Crie um link para o URL do Blob e defina atributos para o download
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'itens_exportados.json';
+                a.download = nomeLista+'.json';
 
                 // Clique automaticamente no link para iniciar o download
                 a.click();
