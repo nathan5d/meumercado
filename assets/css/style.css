@@ -393,7 +393,8 @@ select,
   z-index: 999; }
 
 .navbar {
-  background-color: #ffffff; }
+  background-color: #ffffff;
+  border-radius: 0 0 25px 25px; }
 
 .box-content-modal {
   color: #ffffff;
