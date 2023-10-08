@@ -48,7 +48,7 @@ body.dark-mode {
 
 
     .full-content {
-        background-color: $dark-bg;
+        background-color: $dark-list-bg;
 
         .subtitle {
             color: $dark-text;
@@ -86,7 +86,6 @@ body.dark-mode {
 
         
         &.home{
-            background-color: $dark-list-bg;
             ul {
                 li {
                     background-color: $dark-bg;

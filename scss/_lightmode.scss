@@ -106,7 +106,7 @@ button.button {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: $light-bg;
+    background-color: $light-list-bg;
     overflow: auto;
     z-index: 99;
 
@@ -189,7 +189,7 @@ button.button {
     }
 
     &.home {
-        background-color: $light-list-bg;
+       // background-color: $light-list-bg;
 
         ul {
             li {
