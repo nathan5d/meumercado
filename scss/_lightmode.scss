@@ -123,7 +123,7 @@ button.button {
     ul {
         li {
             padding: 10px;
-            background-color: $light-list-bg;
+            background-color: $light-bg;
             //border-left: 3px solid $dark-accent;
             margin-bottom: 5px;
             border-radius: 6px;
@@ -201,10 +201,12 @@ button.button {
 }
 
 .navbar {
+   
     &-menu {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        height: 100px;
     }
 
     &-item {
@@ -412,7 +414,7 @@ select,
 
 @media screen and (max-width: 1023px) {
     .navbar-menu {
-        background-color: #fff;
+        //background-color: #fff;
         box-shadow: none;
         //padding: 0.5rem 0;
     }

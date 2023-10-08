@@ -4,7 +4,6 @@ p {
   padding: 0; }
 
 .box-content-modal {
-  display: none;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -26,7 +25,7 @@ p {
   background-color: #f5f5f5;
   color: #333333;
   transform: translateY(100%);
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out;
   z-index: 999; }
   .box-content-modal.active {
     display: block;
@@ -168,7 +167,7 @@ button.button {
     font-weight: bold; }
   .full-content ul li {
     padding: 10px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     margin-bottom: 5px;
     border-radius: 6px;
     margin: 5px; }
@@ -223,7 +222,8 @@ button.button {
 .navbar-menu {
   display: flex;
   align-items: center;
-  justify-content: space-between; }
+  justify-content: space-between;
+  height: 100px; }
 
 .navbar-item {
   display: flex;
@@ -374,7 +374,6 @@ select,
 
 @media screen and (max-width: 1023px) {
   .navbar-menu {
-    background-color: #fff;
     box-shadow: none; } }
 
 #offline-message {
@@ -489,7 +488,7 @@ body.dark-mode {
     body.dark-mode .full-content .subtitle {
       color: #ffffff; }
     body.dark-mode .full-content ul li {
-      background-color: #222222; }
+      background-color: #333333; }
       body.dark-mode .full-content ul li .list-container .progress-container::after {
         background-color: #444; }
       body.dark-mode .full-content ul li .list-container .completebar {
