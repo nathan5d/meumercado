@@ -106,7 +106,7 @@ button.button {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: $light-bg;
+    background-color: $light-list-bg;
     overflow: auto;
     z-index: 99;
 
@@ -123,7 +123,7 @@ button.button {
     ul {
         li {
             padding: 10px;
-            background-color: $light-bg;
+            background-color: $light-list-bg;
             //border-left: 3px solid $dark-accent;
             margin-bottom: 5px;
             border-radius: 6px;
