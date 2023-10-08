@@ -56,7 +56,7 @@ body.dark-mode {
 
         ul {
             li {
-                background-color: $dark-bg;
+                background-color: $dark-list-bg;
     
             .list-container {
                 .progress-container {
@@ -146,7 +146,7 @@ body.dark-mode {
     .c-control {
         button {
 
-            background-color: $dark-list-bg;
+            background-color: $dark-bg;
             color: $dark-primary;
             &.is{
                 &-danger{
