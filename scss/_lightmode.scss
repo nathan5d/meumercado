@@ -438,7 +438,10 @@ select,
 
 .navbar {
     background-color: $light-bg;
-    border-radius: 0 0 25px 25px;
+    border-radius: 0 0 20px 20px;
+    &-menu{
+        border-radius: 0 0 20px 20px;
+    }
 }
 
 .box-content {
