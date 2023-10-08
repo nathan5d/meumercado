@@ -48,7 +48,7 @@ body.dark-mode {
 
 
     .full-content {
-        background-color: $dark-list-bg;
+        background-color: $dark-bg;
 
         .subtitle {
             color: $dark-text;
@@ -84,7 +84,9 @@ body.dark-mode {
             }
         }
 
+        
         &.home{
+            background-color: $dark-list-bg;
             ul {
                 li {
                     background-color: $dark-bg;
@@ -145,7 +147,7 @@ body.dark-mode {
     .c-control {
         button {
 
-            background-color: $dark-bg;
+            background-color: $dark-list-bg;
             color: $dark-primary;
             &.is{
                 &-danger{
