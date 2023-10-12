@@ -327,25 +327,26 @@ select,
     button {
         cursor: pointer;
         margin: 0 2px;
-        padding: 10px 20px;
+        padding: 5px;
         border-radius: 8px;
         border: none;
         appearance: none;
-        font-weight: bold;
-        background-color: #efefef;
-        color: #2196F3;
+        font-size: 22px;
+        //font-weight: bold;
+        background-color: transparent;
+        color: $primary;
         transition: all ease-in-out 0.3s;
 
         &.is {
             &-danger {
-                color: $dark-text;
-                background-color: $light-error;
+                color: $light-error;
+                //background-color: $light-error;
             }
         }
 
         &:hover {
-            color: $white;
-            background: $secondary;
+            color: $light-accent;
+            //background: $secondary;
 
         }
     }

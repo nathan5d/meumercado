@@ -461,7 +461,8 @@
 
                 listaUl.append(listItem);
 
-                const editButton = $("<button>").text("Editar");
+                //button editar
+                const editButton = $("<button>").html('<ion-icon name="ios-create"></ion-icon>');
                 editButton.click(function () {
                     iniciarEdicaoOuAdicao(index);
                 });
@@ -469,12 +470,14 @@
                 // listItem.append(editButton);
                 actionsContainer.append(editButton);
 
-                const deleteButton = $("<button>").addClass('is-danger').text("Excluir");
+                //button excluir
+                const deleteButton = $("<button>").addClass('is-danger').html('<ion-icon name="ios-trash"></ion-icon>');
                 deleteButton.click(function () {
                     excluirItem(nomeLista, index); // Chame a função para excluir o item
                 });
 
                 actionsContainer.append(deleteButton);
+                
                 controlContainer.append(actionsContainer);
 
                 // Adicionar eventos para marcar/desmarcar os itens
@@ -729,7 +732,8 @@
 
                 listaUl.append(listItem);
 
-                const editButton = $("<button>").text("Editar");
+                //button editar
+                const editButton = $("<button>").html('<ion-icon name="ios-create"></ion-icon>');
                 editButton.click(function () {
                     iniciarEdicaoOuAdicao(index);
                 });
@@ -737,12 +741,14 @@
                 // listItem.append(editButton);
                 actionsContainer.append(editButton);
 
-                const deleteButton = $("<button>").addClass('is-danger').text("Excluir");
+                //button excluir
+                const deleteButton = $("<button>").addClass('is-danger').html('<ion-icon name="ios-trash"></ion-icon>');
                 deleteButton.click(function () {
                     excluirItem(nomeLista, index); // Chame a função para excluir o item
                 });
 
                 actionsContainer.append(deleteButton);
+                
                 controlContainer.append(actionsContainer);
 
                 // Função para atualizar os totais

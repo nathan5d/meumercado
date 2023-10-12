@@ -146,18 +146,18 @@ body.dark-mode {
     .c-control {
         button {
 
-            background-color: $dark-bg;
+            background-color: transparent;
             color: $dark-primary;
             &.is{
                 &-danger{
-                    color: $dark-text;
-                    background-color: $light-error;
+                    color: $light-error;
+                    //background-color: $light-error;
                 }
             }
 
             &:hover {
                 color: $dark-text;
-                background: $dark-success;
+                //background: $dark-success;
 
             }
         }

@@ -312,20 +312,18 @@ select,
   .c-control button {
     cursor: pointer;
     margin: 0 2px;
-    padding: 10px 20px;
+    padding: 5px;
     border-radius: 8px;
     border: none;
     appearance: none;
-    font-weight: bold;
-    background-color: #efefef;
+    font-size: 22px;
+    background-color: transparent;
     color: #2196F3;
     transition: all ease-in-out 0.3s; }
     .c-control button.is-danger {
-      color: #ffffff;
-      background-color: #f44336; }
+      color: #f44336; }
     .c-control button:hover {
-      color: #ffffff;
-      background: #66bb6a; }
+      color: #ff9800; }
   .c-control label {
     display: block;
     position: relative;
@@ -538,14 +536,12 @@ body.dark-mode {
     /* When the checkbox is checked, add a blue background */
     /* Style the checkmark/indicator */ }
     body.dark-mode .c-control button {
-      background-color: #333333;
+      background-color: transparent;
       color: #42a5f5; }
       body.dark-mode .c-control button.is-danger {
-        color: #ffffff;
-        background-color: #f44336; }
+        color: #f44336; }
       body.dark-mode .c-control button:hover {
-        color: #ffffff;
-        background: #4caf50; }
+        color: #ffffff; }
     body.dark-mode .c-control .checkmark {
       background-color: #eee; }
     body.dark-mode .c-control label:hover input ~ .checkmark {
