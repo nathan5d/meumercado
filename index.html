@@ -405,7 +405,7 @@
                 $(".btn-add").addClass("hidden").removeClass("show");
             }
         };
-       
+
 
         // Função para mostrar uma lista específica
         function mostrarLista(nomeLista) {
@@ -440,12 +440,7 @@
                     "data-index": index
                 });
 
-                // Aplicar estilos CSS para o nome do item
-                checkboxLabel.css({
-                    maxWidth: "150px", // Defina a largura máxima desejada
-                    wordWrap: "break-word", // Quebra de linha de palavras longas
-                    overflow: "hidden", // Oculta o texto que não cabe
-                });
+               
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
 
@@ -712,13 +707,7 @@
                     "data-index": index
                 });
 
-                // Aplicar estilos CSS para o nome do item
-                checkboxLabel.css({
-                    maxWidth: "150px", // Defina a largura máxima desejada
-                    wordWrap: "break-word", // Quebra de linha de palavras longas
-                    overflow: "hidden", // Oculta o texto que não cabe
-                });
-
+               
 
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
@@ -822,7 +811,7 @@
         }
 
         function abrirModal() {
-            
+
             buttonAdd.hide();
             setTimeout(function () {
                 $(".box-content-modal").addClass("active");
@@ -831,10 +820,10 @@
                 //  $('.full-content.list').removeClass('hidden');
             }, 200); // Tempo de atraso em milissegundos (1 segundo no exemplo)
 
-          
+
             // Oculte o botão "btn-add" com a classe "hidden" e remova a classe "show" se estiver presente
             //$(".btn-add").addClass("hidden").removeClass("show");
-           
+
         }
 
         function fecharModal() {
@@ -1019,6 +1008,9 @@
 
             leitor.readAsText(arquivo);
         }
+    </script>
+
+    <script>
 
         // Carregar a lista de listas quando a página é carregada
         $(document).ready(function () {

@@ -189,7 +189,7 @@ button.button {
     }
 
     &.home {
-       // background-color: $light-list-bg;
+        // background-color: $light-list-bg;
 
         ul {
             li {
@@ -201,7 +201,7 @@ button.button {
 }
 
 .navbar {
-   
+
     &-menu {
         display: flex;
         align-items: center;
@@ -300,11 +300,29 @@ select,
 
 /* CHECKBOX */
 .c-control {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.8rem;
     position: relative;
+
+    div {
+        float: left;
+
+        &:first-of-type() {
+            width: 100%;
+        }
+
+        &:last-of-type {
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: end;
+        }
+    }
+
+
 
     button {
         cursor: pointer;
@@ -318,12 +336,13 @@ select,
         color: #2196F3;
         transition: all ease-in-out 0.3s;
 
-        &.is{
-            &-danger{
+        &.is {
+            &-danger {
                 color: $dark-text;
                 background-color: $light-error;
             }
         }
+
         &:hover {
             color: $white;
             background: $secondary;
@@ -332,12 +351,14 @@ select,
     }
 
     label {
+
         display: block;
         position: relative;
         padding-left: 35px;
         margin-bottom: 0;
         cursor: pointer;
         font-size: 22px;
+        word-break: break-all;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -441,7 +462,8 @@ select,
 .navbar {
     background-color: $light-bg;
     border-radius: 0 0 20px 20px;
-    &-menu{
+
+    &-menu {
         border-radius: 0 0 20px 20px;
     }
 }
@@ -510,11 +532,12 @@ select,
 }
 
 
-.dropdown{
-    &-content{
+.dropdown {
+    &-content {
         background-color: $light-bg;
     }
 }
+
 .file {
     &-cta {
         width: 100%;

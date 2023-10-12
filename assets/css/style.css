@@ -288,6 +288,7 @@ select,
 
 /* CHECKBOX */
 .c-control {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -300,6 +301,14 @@ select,
   /* Create the checkmark/indicator (hidden when not checked) */
   /* Show the checkmark when checked */
   /* Style the checkmark/indicator */ }
+  .c-control div {
+    float: left; }
+    .c-control div:first-of-type() {
+      width: 100%; }
+    .c-control div:last-of-type {
+      display: inline-flex;
+      align-items: center;
+      justify-content: end; }
   .c-control button {
     cursor: pointer;
     margin: 0 2px;
@@ -324,6 +333,7 @@ select,
     margin-bottom: 0;
     cursor: pointer;
     font-size: 22px;
+    word-break: break-all;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
