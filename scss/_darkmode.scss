@@ -144,6 +144,12 @@ body.dark-mode {
 
     /* CHECKBOX */
     .c-control {
+        .item-content{
+            background-color: $dark-bg;
+        }
+        .item-options{
+            background-color: $dark-list-bg;
+        }
         &.swipe-edit {
             transition: transform 0.2s;
            
@@ -151,7 +157,7 @@ body.dark-mode {
                 width: 100%;
                 margin-right: 20px;
                 transform: translateX(-5rem);
-                border-right: 2px solid $dark-bg-progress-container;
+               // border-right: 2px solid $dark-bg-progress-container;
             }
         }
         button {
