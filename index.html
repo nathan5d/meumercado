@@ -38,6 +38,11 @@
     <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+
 </head>
 
 <body class="">
@@ -406,6 +411,32 @@
             }
         };
 
+        function enableSwipeToEdit() {
+            console.log('habilitado')
+            // Seletor para os elementos que terão a funcionalidade de swipe
+            const swipeElements = $('.c-control');
+
+            // Loop pelos elementos e adicionando a funcionalidade de swipe
+            swipeElements.each(function () {
+                const $element = $(this);
+                const hammer = new Hammer(this);
+
+                hammer.on('swipe', function (event) {
+                    if (event.deltaX > 0) {
+                        console.log('direita')
+                        //alert('direita');
+                        // Deslizar para a direita (ação a ser executada)
+                        $element.removeClass('swipe-edit');
+                    } else {
+                        //alert('esquerda');
+                        // Deslizar para a esquerda (ação a ser executada)
+                        $element.addClass('swipe-edit');
+                    }
+                });
+            });
+        }
+
+
 
         // Função para mostrar uma lista específica
         function mostrarLista(nomeLista) {
@@ -430,8 +461,8 @@
             let totalForaDoCarrinho = 0;
 
             $.each(lista.items, function (index, item) {
-                const controlContainer = $("<div>").addClass("c-control");
-                const checkboxContainer = $("<div>");
+                const controlContainer = $("<div>");
+                const checkboxContainer = $("<div>").addClass('item-content');
                 const checkboxLabel = $("<label>").text(item.nome).attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
@@ -440,7 +471,7 @@
                     "data-index": index
                 });
 
-               
+
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
 
@@ -455,9 +486,9 @@
                 checkboxContainer.append(checkboxLabel, `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem}`);
                 //const listItem = $("<li>").append(checkboxContainer, `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem}`);
                 controlContainer.append(checkboxContainer);
-                const listItem = $("<li>").append(controlContainer);
+                const listItem = $("<li>").append(controlContainer).addClass("c-control");
 
-                const actionsContainer = $('<div>');
+                const actionsContainer = $('<div>').addClass('item-options');
 
                 listaUl.append(listItem);
 
@@ -477,7 +508,7 @@
                 });
 
                 actionsContainer.append(deleteButton);
-                
+
                 controlContainer.append(actionsContainer);
 
                 // Adicionar eventos para marcar/desmarcar os itens
@@ -542,6 +573,7 @@
 
             // Chame a função para atualizar os totais
             atualizaTotais(lista); // Passe a lista como argumento
+            enableSwipeToEdit();
         }
 
         // Função para iniciar a edição ou adição de um item
@@ -700,8 +732,8 @@
             let totalForaDoCarrinho = 0;
 
             $.each(lista.items, function (index, item) {
-                const controlContainer = $("<div>").addClass("c-control");
-                const checkboxContainer = $("<div>");
+                const controlContainer = $("<div>");
+                const checkboxContainer = $("<div>").addClass('item-content');
                 const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
@@ -710,7 +742,7 @@
                     "data-index": index
                 });
 
-               
+
 
                 // Adicione um identificador aos itens selecionados
                 checkbox.attr("data-selecionado", item.selecionado);
@@ -726,9 +758,9 @@
                 checkboxContainer.append(checkboxLabel, `${item.quantidade} x, ${precoFormatado} ${item.unidade}, ${totalItem}`);
                 //const listItem = $("<li>").append(checkboxContainer, `${item.quantidade} x, Preço: ${precoFormatado} ${item.unidade}, Total: ${totalItem}`);
                 controlContainer.append(checkboxContainer);
-                const listItem = $("<li>").append(controlContainer);
+                const listItem = $("<li>").append(controlContainer).addClass("c-control");
 
-                const actionsContainer = $('<div>');
+                const actionsContainer = $('<div>').addClass('item-options');
 
                 listaUl.append(listItem);
 
@@ -748,7 +780,7 @@
                 });
 
                 actionsContainer.append(deleteButton);
-                
+
                 controlContainer.append(actionsContainer);
 
                 // Função para atualizar os totais
@@ -814,6 +846,8 @@
             $("#totalLista").text(totalListaFormatado);
             $("#totalCarrinho").text(totalCarrinhoFormatado);
             $("#totalForaCarrinho").text(totalForaCarrinhoFormatado);
+
+            enableSwipeToEdit();
         }
 
         function abrirModal() {
@@ -1016,11 +1050,15 @@
         }
     </script>
 
+
     <script>
 
         // Carregar a lista de listas quando a página é carregada
         $(document).ready(function () {
+            // Inicializar variáveis de controle de deslizamento
 
+
+            enableSwipeToEdit();
             buttonAdd.hide();
 
             $('.full-content.list').removeClass('hidden');
