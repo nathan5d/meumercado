@@ -337,7 +337,6 @@ select,
     position: absolute;
     right: 10px;
     height: 100%;
-    background-color: #ff9800;
     border-radius: 6px;
     opacity: 0; }
   .c-control.swipe-edit {
@@ -350,9 +349,9 @@ select,
       width: 100%;
       justify-content: end;
       align-items: center;
-      background-color: #ff9800;
-      opacity: 1;
-      transform: translateX(180px); }
+      opacity: 1; }
+    .c-control.swipe-edit.show-delete-option .is-danger {
+      display: block; }
   .c-control button {
     cursor: pointer;
     width: 90px;
@@ -369,11 +368,13 @@ select,
     transition: all ease-in-out 0.3s; }
     .c-control button:first-of-type {
       color: #ffffff;
-      background-color: #42a5f5; }
+      background-color: #f44336; }
     .c-control button:last-of-type {
       color: #ffffff;
-      background-color: #f44336;
-      border-radius: 0 6px 6px 0; }
+      border-radius: 0 6px 6px 0;
+      background-color: #42a5f5; }
+    .c-control button.is-danger {
+      display: none; }
   .c-control label {
     display: block;
     position: relative;

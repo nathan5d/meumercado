@@ -363,7 +363,7 @@ select,
         right: 10px;
         height: 100%;
 
-        background-color: $light-accent;
+        //background-color: $light-accent;
         //border-left: 3px solid $dark-accent;
         border-radius: 6px;
         //background-color: $white;
@@ -387,11 +387,16 @@ select,
             width: 100%;
             justify-content: end;
             align-items: center;
-            background-color: #ff9800;
             opacity: 1;
-            transform: translateX(180px);
+            //transform: translateX(180px);
+            
         }
 
+        &.show-delete-option{
+            .is-danger{
+                display: block;
+            }
+        }
         &:hover {
             // transform: translateX(-5rem);
         }
@@ -415,17 +420,20 @@ select,
 
         &:first-of-type {
             color: $white;
-            background-color: $dark-primary;
+
+            background-color: $dark-error;
         }
 
         &:last-of-type {
             color: $white;
-            background-color: $dark-error;
             border-radius: 0 6px 6px 0;
+
+            background-color: $dark-primary;
         }
 
         &.is {
             &-danger {
+                display: none;
                 //color: $light-error;
                 //background-color: $light-error;
             }

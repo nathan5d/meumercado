@@ -518,10 +518,12 @@
             console.log('habilitado');
             // Seletor para os elementos que terão a funcionalidade de swipe
             const swipeElements = $('.c-control');
+          
 
             // Loop pelos elementos e adicionando a funcionalidade de swipe
             swipeElements.each(function () {
                 const $element = $(this);
+                const $showOptions = $element.find('.item-options');
                 let isSwiping = false;
                 let originalX = 0;
 
@@ -539,7 +541,7 @@
                         $element.css('transform', `translateX(${deltaX}px)`);
 
                         // Adicione um limiar para exibir as opções de edição e exclusão
-                        if (deltaX <= -50 && deltaX > -100) {
+                        if (deltaX <= 0 && deltaX > -100) {
                             // Exibir opção de editar
                             $element.addClass('show-edit-option');
                             $element.removeClass('show-delete-option');
@@ -566,15 +568,16 @@
                             $element.removeClass('swipe-edit');
                             $element.css('transform', 'translateX(0)');
                         } else {
-                            // Deslizar para a esquerda (ação a ser executada)
-                            if (deltaX <= -10) {
+                            if (deltaX <= 0 && deltaX > -100) {
                                 // Exibir opção de editar
                                 $element.addClass('swipe-edit');
-                                $element.css('transform', 'translateX(-180px)');
+                                $element.css('transform', 'translateX(-90px)');
+                                $showOptions.css('transform', 'translateX(90px)');
                             } else if (deltaX <= -100) {
                                 // Exibir opção de excluir
-                                //$element.addClass('swipe-delete');
-                                //$element.css('transform', 'translateX(-100px)');
+                                $element.addClass('swipe-edit');
+                                $element.css('transform', 'translateX(-180px)');
+                                $showOptions.css('transform', 'translateX(180px)');
                             }
                         }
                     }
@@ -656,8 +659,7 @@
                     iniciarEdicaoOuAdicao(index);
                 });
 
-                // listItem.append(editButton);
-                actionsContainer.append(editButton);
+
 
                 //button excluir
                 const deleteButton = $("<button>").addClass('is-danger').html('<ion-icon name="ios-trash"></ion-icon>');
@@ -666,6 +668,8 @@
                 });
 
                 actionsContainer.append(deleteButton);
+                // listItem.append(editButton);
+                actionsContainer.append(editButton);
 
                 listItem.append(actionsContainer);
 
@@ -928,8 +932,7 @@
                     iniciarEdicaoOuAdicao(index);
                 });
 
-                // listItem.append(editButton);
-                actionsContainer.append(editButton);
+
 
                 //button excluir
                 const deleteButton = $("<button>").addClass('is-danger').html('<ion-icon name="ios-trash"></ion-icon>');
@@ -942,8 +945,10 @@
 
 
                 actionsContainer.append(deleteButton);
+                // listItem.append(editButton);
+                actionsContainer.append(editButton);
 
-                controlContainer.append(actionsContainer);
+                listItem.append(actionsContainer);
 
                 // Função para atualizar os totais
                 function atualizaTotais(lista) { // Receba a lista como argumento
