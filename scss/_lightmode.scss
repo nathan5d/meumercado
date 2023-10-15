@@ -112,6 +112,7 @@ button.button {
 
     .box-content {
         padding: 10px;
+        overflow: hidden;
     }
 
     .subtitle {
@@ -345,24 +346,28 @@ select,
 
         background-color: $light-bg;
         //border-left: 3px solid $dark-accent;
-        border-radius:6px;
+        border-radius: 6px;
+        z-index: 99;
 
     }
 
     .item-options {
         display: flex;
+        width: 50%;
         align-items: center;
-        padding: 10px;
-        transform: translateX(100%);
+        justify-content: end;
+        padding: 0;
+        //transform: translateX(100%);
         transition: transform 0.2s;
         position: absolute;
-        right: 0;
+        right: 10px;
         height: 100%;
 
-        background-color: $light-list-bg;
+        background-color: $light-accent;
         //border-left: 3px solid $dark-accent;
-        border-radius: 0 6px 6px 0;
+        border-radius: 6px;
         //background-color: $white;
+        opacity: 0;
 
     }
 
@@ -371,19 +376,20 @@ select,
 
         .item-content {
             width: 100%;
-            margin-right: 20px;
-            transform: translateX(-5rem);
-           // border-right: 2px solid $light-bg-progress-container;
+            // margin-right: 20px;
+            // transform: translateX(-5rem);
+            // border-right: 2px solid $light-bg-progress-container;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
         }
 
         .item-options {
-            width: 100px;
-            justify-content: center;
+            width: 100%;
+            justify-content: end;
             align-items: center;
-            // background: $white;
-
-
-            transform: translateX(0);
+            background-color: #ff9800;
+            opacity: 1;
+            transform: translateX(180px);
         }
 
         &:hover {
@@ -394,26 +400,39 @@ select,
 
     button {
         cursor: pointer;
-        margin: 0 2px;
-        padding: 5px;
-        border-radius: 8px;
+        width: 90px;
+        height: 100%;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
         border: none;
         appearance: none;
         font-size: 22px;
-        //font-weight: bold;
         background-color: transparent;
         color: $primary;
         transition: all ease-in-out 0.3s;
 
+        &:first-of-type {
+            color: $white;
+            background-color: $dark-primary;
+        }
+
+        &:last-of-type {
+            color: $white;
+            background-color: $dark-error;
+            border-radius: 0 6px 6px 0;
+        }
+
         &.is {
             &-danger {
-                color: $light-error;
+                //color: $light-error;
                 //background-color: $light-error;
             }
         }
 
         &:hover {
-            color: $light-accent;
+            // color: $light-accent;
             //background: $secondary;
 
         }

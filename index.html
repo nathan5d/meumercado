@@ -41,7 +41,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
 
@@ -411,7 +411,9 @@
             }
         };
 
-        function enableSwipeToEdit() {
+
+
+        function enableSwipeToEdit2() {
             console.log('habilitado')
             // Seletor para os elementos que terão a funcionalidade de swipe
             const swipeElements = $('.c-control');
@@ -436,6 +438,162 @@
             });
         }
 
+        function enableSwipeToEdit3() {
+            console.log('habilitado');
+            // Seletor para os elementos que terão a funcionalidade de swipe
+            const swipeElements = $('.c-control');
+
+            // Loop pelos elementos e adicionando a funcionalidade de swipe
+            swipeElements.each(function () {
+                const $element = $(this);
+                let startX; // Para rastrear a posição inicial
+
+                // Use o Draggable do jQuery UI
+                $element.draggable({
+                    axis: 'x', // Somente permita o movimento horizontal
+                    start: function (event, ui) {
+                        startX = ui.position.left;
+                    },
+                    drag: function (event, ui) {
+                        const deltaX = ui.position.left - startX;
+
+                        // Defina uma distância mínima para ativar a ação de swipe (ajuste conforme necessário)
+                        const threshold = 50;
+
+                        if (deltaX > threshold) {
+                            // Deslizar para a direita (ação a ser executada)
+                            $element.removeClass('swipe-edit');
+                        } else if (deltaX < -threshold) {
+                            // Deslizar para a esquerda (ação a ser executada)
+                            $element.addClass('swipe-edit');
+                        }
+                    },
+                    stop: function () {
+                        // Limpe a posição inicial
+                        startX = 0;
+                    },
+                });
+            });
+        }
+
+        function enableSwipeToEdit4() {
+            console.log('habilitado');
+            // Seletor para os elementos que terão a funcionalidade de swipe
+            const swipeElements = $('.c-control');
+
+            // Loop pelos elementos e adicionando a funcionalidade de swipe
+            swipeElements.each(function () {
+                const $element = $(this);
+                let isSwiped = false;
+
+                // Use o Draggable do jQuery UI
+                $element.draggable({
+                    axis: 'x', // Somente permita o movimento horizontal
+                    containment: [-100, 0, 10, 0], // Defina os limites de movimento horizontal
+                    start: function () {
+                        isSwiped = false;
+                    },
+                    drag: function (event, ui) {
+                        console.log(ui.position.left)
+                        if (ui.position.left < -10 && !isSwiped) {
+                            // Se o elemento foi arrastado para a esquerda o suficiente, exiba as opções
+                            isSwiped = true;
+                            $element.addClass('swipe-edit');
+                        } else if (ui.position.left > -100 && isSwiped) {
+                            // Se o elemento foi arrastado de volta para a direita, oculte as opções
+                            isSwiped = false;
+                            $element.removeClass('swipe-edit');
+                            ui.position.left = 10;
+                        }
+                    },
+                    stop: function () {
+                        // Redefina a posição após o término do arrasto
+                        //$element.css('left', 0);
+                    },
+                });
+            });
+        }
+
+        function enableSwipeToEdit() {
+            console.log('habilitado');
+            // Seletor para os elementos que terão a funcionalidade de swipe
+            const swipeElements = $('.c-control');
+
+            // Loop pelos elementos e adicionando a funcionalidade de swipe
+            swipeElements.each(function () {
+                const $element = $(this);
+                let isSwiping = false;
+                let originalX = 0;
+
+                // Use o Hammer.js para reconhecimento de gestos
+                const hammer = new Hammer(this);
+
+                hammer.on('panstart', function (event) {
+                    isSwiping = true;
+                    originalX = $element.position().left;
+                });
+
+                hammer.on('panmove', function (event) {
+                    if (isSwiping) {
+                        const deltaX = originalX + event.deltaX;
+                        $element.css('transform', `translateX(${deltaX}px)`);
+
+                        // Adicione um limiar para exibir as opções de edição e exclusão
+                        if (deltaX <= -50 && deltaX > -100) {
+                            // Exibir opção de editar
+                            $element.addClass('show-edit-option');
+                            $element.removeClass('show-delete-option');
+                        } else if (deltaX <= -100) {
+                            // Exibir opção de excluir
+                            $element.addClass('show-delete-option');
+                            $element.removeClass('show-edit-option');
+                        } else {
+                            // A posição do elemento não atingiu nenhum limiar
+                            $element.removeClass('show-edit-option');
+                            $element.removeClass('show-delete-option');
+                        }
+                    }
+                });
+
+                hammer.on('panend', function (event) {
+                    if (isSwiping) {
+                        isSwiping = false;
+                        originalX = 0;
+                        const deltaX = event.deltaX;
+
+                        if (deltaX > 0) {
+                            // Deslizar para a direita (ação a ser executada)
+                            $element.removeClass('swipe-edit');
+                            $element.css('transform', 'translateX(0)');
+                        } else {
+                            // Deslizar para a esquerda (ação a ser executada)
+                            if (deltaX <= -10) {
+                                // Exibir opção de editar
+                                $element.addClass('swipe-edit');
+                                $element.css('transform', 'translateX(-180px)');
+                            } else if (deltaX <= -100) {
+                                // Exibir opção de excluir
+                                //$element.addClass('swipe-delete');
+                                //$element.css('transform', 'translateX(-100px)');
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Chame a função para habilitar o swipe
+        //enableSwipeToEdit();
+
+        // Chame a função para habilitar o swipe
+        //enableSwipeToEdit();
+
+
+        // Chame a função para habilitar o swipe
+        //enableSwipeToEdit();
+
+        // Chame a função para habilitar o swipe
+        //enableSwipeToEdit();
 
 
         // Função para mostrar uma lista específica
@@ -463,7 +621,7 @@
             $.each(lista.items, function (index, item) {
                 const controlContainer = $("<div>");
                 const checkboxContainer = $("<div>").addClass('item-content');
-                const checkboxLabel = $("<label>").text(item.nome).attr({ for: "item" + index });
+                const checkboxLabel = $("<label>").text(item.nome);//.attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
                     class: "item-checkbox",
@@ -509,7 +667,7 @@
 
                 actionsContainer.append(deleteButton);
 
-                controlContainer.append(actionsContainer);
+                listItem.append(actionsContainer);
 
                 // Adicionar eventos para marcar/desmarcar os itens
                 checkbox.change(function () {
@@ -734,7 +892,7 @@
             $.each(lista.items, function (index, item) {
                 const controlContainer = $("<div>");
                 const checkboxContainer = $("<div>").addClass('item-content');
-                const checkboxLabel = $("<label>").addClass("").text(item.nome).attr({ for: "item" + index });
+                const checkboxLabel = $("<label>").addClass("").text(item.nome);//.attr({ for: "item" + index });
                 const checkbox = $("<input>").attr({
                     type: "checkbox",
                     class: "item-checkbox",
@@ -778,6 +936,10 @@
                 deleteButton.click(function () {
                     excluirItem(nomeLista, index); // Chame a função para excluir o item
                 });
+
+
+
+
 
                 actionsContainer.append(deleteButton);
 
