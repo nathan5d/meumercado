@@ -535,28 +535,15 @@
                 });
 
                 //const $element =  $element.closest('li');
-             /*   hammer.on('panmove', function (event) {
+               hammer.on('panmove', function (event) {
                     if (isSwiping) {
                         const deltaX = originalX + event.deltaX;
                         $element.css('transform', `translateX(${deltaX}px)`);
 
                         console.log(deltaX);
-                        // Adicione um limiar para exibir as opções de edição e exclusão
-                        if (deltaX < -50 && deltaX >= -100) {
-                            // Exibir opção de editar
-                            $element.closest('li').addClass('show-edit-option');
-                            $element.closest('li').removeClass('show-delete-option');
-                        } else if (deltaX < -100) {
-                            // Exibir opção de excluir
-                            $element.closest('li').addClass('show-delete-option');
-                            //$element.removeClass('show-edit-option');
-                        } else {
-                            // A posição do elemento não atingiu nenhum limiar
-                            $element.closest('li').removeClass('show-edit-option');
-                            $element.closest('li').removeClass('show-delete-option');
-                        }
+                       
                     }
-                });*/
+                });
 
                 hammer.on('panend', function (event) {
                     if (isSwiping) {

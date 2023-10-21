@@ -340,7 +340,7 @@ select,
     transition: transform 0.2s;
     position: absolute;
     height: 100%;
-    background-color: #2196F3;
+    background-color: #f44336;
     border-radius: 6px; }
   .c-control.swipe-edit {
     transition: transform 0.2s; }
