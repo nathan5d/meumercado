@@ -1,4 +1,9 @@
 @charset "UTF-8";
+html,
+body {
+  height: 100%;
+  overflow: auto; }
+
 p {
   margin: 0;
   padding: 0; }
@@ -170,8 +175,7 @@ button.button {
   .full-content ul li {
     padding: 10px;
     margin-bottom: 5px;
-    border-radius: 6px;
-    margin: 5px; }
+    margin: 5px auto; }
     .full-content ul li .list-container {
       display: flex;
       justify-content: space-between;
@@ -308,8 +312,7 @@ select,
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    position: relative;
-    padding-right: 10px; }
+    position: relative; }
   .c-control div {
     /*&:last-of-type {
 
@@ -325,19 +328,17 @@ select,
     transition: transform 0.2s;
     animation: ease-in-out all 0.2s;
     background-color: #ffffff;
-    border-radius: 6px;
     z-index: 99; }
   .c-control .item-options {
     display: flex;
-    width: 50%;
+    width: 100%;
     align-items: center;
     justify-content: end;
     padding: 0;
     transition: transform 0.2s;
     position: absolute;
-    right: 10px;
     height: 100%;
-    border-radius: 6px; }
+    background-color: #2196F3; }
   .c-control.swipe-edit {
     transition: transform 0.2s; }
     .c-control.swipe-edit .item-content {
@@ -345,6 +346,7 @@ select,
       border-top-right-radius: 0;
       border-bottom-right-radius: 0; }
     .c-control.swipe-edit .item-options {
+      left: 7;
       width: 100%;
       justify-content: end;
       align-items: center;

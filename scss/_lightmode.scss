@@ -127,8 +127,8 @@ button.button {
             //background-color: $light-bg;
             //border-left: 3px solid $dark-accent;
             margin-bottom: 5px;
-            border-radius: 6px;
-            margin: 5px;
+            //border-radius: 6px;
+            margin: 5px auto ;
 
             .list-container {
                 display: flex;
@@ -318,7 +318,6 @@ select,
         justify-content: space-between;
         overflow: hidden;
         position: relative;
-        padding-right: 10px;
 
     }
 
@@ -346,26 +345,25 @@ select,
 
         background-color: $light-bg;
         //border-left: 3px solid $dark-accent;
-        border-radius: 6px;
+       // border-radius: 6px;
         z-index: 99;
 
     }
 
     .item-options {
         display: flex;
-        width: 50%;
+        width: 100%;
         align-items: center;
         justify-content: end;
         padding: 0;
         //transform: translateX(100%);
         transition: transform 0.2s;
         position: absolute;
-        right: 10px;
         height: 100%;
 
-        //background-color: $light-accent;
+        background-color: $light-primary;
         //border-left: 3px solid $dark-accent;
-        border-radius: 6px;
+       // border-radius: 6px;
         //background-color: $white;
         //opacity: 0;
        // transform:  translateX(180px)
@@ -385,6 +383,7 @@ select,
         }
 
         .item-options {
+            left: 7;
             width: 100%;
             justify-content: end;
             align-items: center;
