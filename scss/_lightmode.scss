@@ -111,13 +111,16 @@ button.button {
     z-index: 99;
 
     .box-content {
-        padding: 0px;
+        padding: 10px;
         overflow: hidden;
     }
 
     .subtitle {
         color: $light-text;
         font-weight: bold;
+    }
+    .list,.new-list{
+        //padding: 10px;
     }
 
 
@@ -127,7 +130,7 @@ button.button {
             //background-color: $light-bg;
             //border-left: 3px solid $dark-accent;
             margin-bottom: 5px;
-            //border-radius: 6px;
+            border-radius: 6px;
             margin: 5px auto ;
 
             .list-container {
@@ -345,7 +348,7 @@ select,
 
         background-color: $light-bg;
         //border-left: 3px solid $dark-accent;
-       // border-radius: 6px;
+        border-radius: 6px;
         z-index: 99;
 
     }
@@ -363,7 +366,7 @@ select,
 
         background-color: $light-primary;
         //border-left: 3px solid $dark-accent;
-       // border-radius: 6px;
+        border-radius: 6px;
         //background-color: $white;
         //opacity: 0;
        // transform:  translateX(180px)
@@ -433,7 +436,7 @@ select,
 
         &.is {
             &-danger {
-                display: none;
+                //display: none;
                 //color: $light-error;
                 //background-color: $light-error;
             }

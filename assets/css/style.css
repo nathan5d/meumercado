@@ -167,7 +167,7 @@ button.button {
   overflow: auto;
   z-index: 99; }
   .full-content .box-content {
-    padding: 0px;
+    padding: 10px;
     overflow: hidden; }
   .full-content .subtitle {
     color: #333333;
@@ -175,6 +175,7 @@ button.button {
   .full-content ul li {
     padding: 10px;
     margin-bottom: 5px;
+    border-radius: 6px;
     margin: 5px auto; }
     .full-content ul li .list-container {
       display: flex;
@@ -328,6 +329,7 @@ select,
     transition: transform 0.2s;
     animation: ease-in-out all 0.2s;
     background-color: #ffffff;
+    border-radius: 6px;
     z-index: 99; }
   .c-control .item-options {
     display: flex;
@@ -338,7 +340,8 @@ select,
     transition: transform 0.2s;
     position: absolute;
     height: 100%;
-    background-color: #2196F3; }
+    background-color: #2196F3;
+    border-radius: 6px; }
   .c-control.swipe-edit {
     transition: transform 0.2s; }
     .c-control.swipe-edit .item-content {
@@ -374,8 +377,6 @@ select,
       color: #ffffff;
       border-radius: 0 6px 6px 0;
       background-color: #42a5f5; }
-    .c-control button.is-danger {
-      display: none; }
   .c-control label {
     display: block;
     position: relative;
