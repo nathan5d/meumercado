@@ -313,6 +313,7 @@ select,
     display: flex;
     justify-content: space-between;
     overflow: hidden;
+    border-radius: 6px;
     position: relative; }
   .c-control div {
     /*&:last-of-type {
@@ -340,7 +341,7 @@ select,
     transition: transform 0.2s;
     position: absolute;
     height: 100%;
-    background-color: #f44336;
+    background-color: #ffffff;
     border-radius: 6px; }
   .c-control.swipe-edit {
     transition: transform 0.2s; }
@@ -358,12 +359,11 @@ select,
       display: block; }
   .c-control button {
     cursor: pointer;
-    width: 90px;
+    width: 40px;
     height: 100%;
     cursor: pointer;
     margin: 0;
     padding: 0;
-    border-radius: 0;
     border: none;
     appearance: none;
     font-size: 22px;
@@ -375,7 +375,6 @@ select,
       background-color: #f44336; }
     .c-control button:last-of-type {
       color: #ffffff;
-      border-radius: 0 6px 6px 0;
       background-color: #42a5f5; }
   .c-control label {
     display: block;
@@ -589,6 +588,8 @@ body.dark-mode {
     /* When the checkbox is checked, add a blue background */
     /* Style the checkmark/indicator */ }
     body.dark-mode .c-control .item-content {
+      background-color: #333333; }
+    body.dark-mode .c-control .item-options {
       background-color: #333333; }
     body.dark-mode .c-control.swipe-edit {
       transition: transform 0.2s; }

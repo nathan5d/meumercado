@@ -514,7 +514,7 @@
             });
         }
 
-        function enableSwipeToEdit() {
+        function enableSwipeToEdit5() {
             console.log('habilitado');
             // Seletor para os elementos que terão a funcionalidade de swipe
             const swipeElements = $('.c-control');
@@ -535,28 +535,31 @@
                 });
 
                 //const $element =  $element.closest('li');
-             /*   hammer.on('panmove', function (event) {
+                hammer.on('panmove', function (event) {
                     if (isSwiping) {
                         const deltaX = originalX + event.deltaX;
-                        $element.css('transform', `translateX(${deltaX}px)`);
 
+                        if (deltaX <= 0) {
+                            $element.css('transform', `translateX(${deltaX}px)`);
+
+                        }
                         console.log(deltaX);
                         // Adicione um limiar para exibir as opções de edição e exclusão
-                        if (deltaX < -50 && deltaX >= -100) {
-                            // Exibir opção de editar
-                            $element.closest('li').addClass('show-edit-option');
-                            $element.closest('li').removeClass('show-delete-option');
-                        } else if (deltaX < -100) {
-                            // Exibir opção de excluir
-                            $element.closest('li').addClass('show-delete-option');
-                            //$element.removeClass('show-edit-option');
-                        } else {
-                            // A posição do elemento não atingiu nenhum limiar
-                            $element.closest('li').removeClass('show-edit-option');
-                            $element.closest('li').removeClass('show-delete-option');
-                        }
+                        /* if (deltaX < -50 && deltaX >= -100) {
+                             // Exibir opção de editar
+                             $element.closest('li').addClass('show-edit-option');
+                             $element.closest('li').removeClass('show-delete-option');
+                         } else if (deltaX < -100) {
+                             // Exibir opção de excluir
+                             $element.closest('li').addClass('show-delete-option');
+                             //$element.removeClass('show-edit-option');
+                         } else {
+                             // A posição do elemento não atingiu nenhum limiar
+                             $element.closest('li').removeClass('show-edit-option');
+                             $element.closest('li').removeClass('show-delete-option');
+                         }*/
                     }
-                });*/
+                });
 
                 hammer.on('panend', function (event) {
                     if (isSwiping) {
@@ -569,27 +572,101 @@
                             $element.closest('li').removeClass('swipe-edit');
                             $element.css('transform', 'translateX(0)');
                         } else {
-                            if (deltaX < -50 && deltaX >= -100) {
-                                console.log('entrou no if do panned <-50 >= -100', deltaX)
+                            if (deltaX < -0 && deltaX >= -50) {
+                                console.log('entrou no if do panned < -50 >= -100', deltaX)
                                 // Exibir opção de editar
                                 $element.closest('li').addClass('swipe-edit');
-                                $element.css('transform', 'translateX(-90px)');
+                                $element.css('transform', 'translateX(-40px)');
                                 //$showOptions.css('transform', 'translateX(90px)');
-                            } else if (deltaX < -100) {
+                            } else if (deltaX <= -50) {
                                 // Exibir opção de excluir
                                 console.log('entrou no else do panned < -100', deltaX)
                                 // Exibir opção de editar
                                 $element.closest('li').addClass('swipe-edit');
                                 $element.closest('li').addClass('swipe-delete');
-                                $element.css('transform', 'translateX(-180px)');
+                                $element.css('transform', 'translateX(-80px)');
                                 //$showOptions.css('transform', 'translateX(180px)');
                             } else {
                                 console.log('entrou no else do panned', deltaX)
                                 $element.closest('li').removeClass('swipe-delete');
                                 $element.closest('li').addClass('swipe-edit');
-                                $element.css('transform', 'translateX(-90px)');
+                                $element.css('transform', 'translateX(-40px)');
                                 //$showOptions.css('transform', 'translateX(90px)');
                             }
+                        }
+                    }
+                });
+            });
+        }
+
+        function enableSwipeToEdit() {
+            console.log('habilitado');
+            // Seletor para os elementos que terão a funcionalidade de swipe
+            const swipeElements = $('.c-control');
+
+            // Loop pelos elementos e adicionando a funcionalidade de swipe
+            swipeElements.each(function () {
+                const $element = $(this).find('.item-content');
+                const $showOptions = $element.find('.item-options');
+                let isSwiping = false;
+                let originalX = 0;
+                let lastDeltaX = 0;
+
+                // Use o Hammer.js para reconhecimento de gestos
+                const hammer = new Hammer(this);
+
+                hammer.on('panstart', function (event) {
+                    isSwiping = true;
+                    originalX = $element.position().left;
+                });
+
+                //const $element =  $element.closest('li');
+                hammer.on('panmove', function (event) {
+                    if (isSwiping) {
+                        const deltaX = originalX + event.deltaX;
+
+                        if (deltaX <= 0) {
+                            lastDeltaX = deltaX;
+                            $element.css('transform', `translateX(${deltaX}px)`);
+                        }
+                        console.log(deltaX);
+                        // Adicione um limiar para exibir as opções de edição e exclusão
+                       /* if (lastDeltaX < -0 && lastDeltaX >= -50) {
+                            // Exibir opção de editar
+                            $element.closest('li').addClass('swipe-edit');
+                            // $element.css('transform', 'translateX(-40px)');
+                            //$showOptions.css('transform', 'translateX(90px)');
+                        } else if (lastDeltaX < -50) {
+                            // Exibir opção de excluir
+                            $element.closest('li').addClass('swipe-edit swipe-delete');
+                            //$element.css('transform', 'translateX(-80px)');
+                            //$showOptions.css('transform', 'translateX(180px)');
+                        } else {
+                            // A posição do elemento não atingiu nenhum limiar
+                            $element.closest('li').removeClass('swipe-edit swipe-delete');
+                        }*/
+                    }
+                });
+
+                hammer.on('panend', function (event) {
+                    if (isSwiping) {
+                        isSwiping = false;
+                        originalX = 0;
+                        const deltaX = event.deltaX;
+
+                        if (deltaX > 0) {
+                            // Deslizar para a direita (ação a ser executada)
+                            $element.closest('li').removeClass('swipe-edit swipe-delete');
+                            $element.css('transform', 'translateX(0)');
+                        } else if (lastDeltaX < -0 && lastDeltaX >= -50) {
+                            // Permanece na posição de edição
+                            $element.closest('li').addClass('swipe-edit');
+                            $element.css('transform', 'translateX(-40px)');
+                        } else if (lastDeltaX < -50) {
+                            // Permanece na posição de exclusão
+                            
+                            $element.closest('li').addClass('swipe-edit swipe-delete');
+                            $element.css('transform', 'translateX(-80px)');
                         }
                     }
                 });
@@ -675,7 +752,14 @@
                 //button excluir
                 const deleteButton = $("<button>").addClass('is-danger').html('<ion-icon name="ios-trash"></ion-icon>');
                 deleteButton.click(function () {
-                    excluirItem(nomeLista, index); // Chame a função para excluir o item
+                    const confirmDelete = confirm("Tem certeza de que deseja excluir este item?");
+
+                    if (confirmDelete) {
+                        // O usuário confirmou a exclusão
+                        excluirItem(nomeLista, index);
+                    }
+
+                   // excluirItem(nomeLista, index); // Chame a função para excluir o item
                 });
 
                 actionsContainer.append(deleteButton);
@@ -948,7 +1032,14 @@
                 //button excluir
                 const deleteButton = $("<button>").addClass('is-danger').html('<ion-icon name="ios-trash"></ion-icon>');
                 deleteButton.click(function () {
-                    excluirItem(nomeLista, index); // Chame a função para excluir o item
+                    const confirmDelete = confirm("Tem certeza de que deseja excluir este item?");
+
+                    if (confirmDelete) {
+                        // O usuário confirmou a exclusão
+                        excluirItem(nomeLista, index);
+                    }
+
+                   // excluirItem(nomeLista, index); // Chame a função para excluir o item
                 });
 
 
