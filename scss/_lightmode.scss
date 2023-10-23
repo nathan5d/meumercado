@@ -119,8 +119,31 @@ button.button {
         color: $light-text;
         font-weight: bold;
     }
-    .list,.new-list{
+
+    .list,
+    .new-list {
+
         //padding: 10px;
+        input,
+        .input {
+
+            height: 60px;
+            border: none;
+            color: $light-input-text;
+            background-color: $light-input-bg;
+            border-bottom: 3px solid $light-bg-progress-container;
+            box-shadow: none;
+            transition: all ease-in-out 0.3s;
+
+            &:hover {
+                background-color: $light-bg;
+                border-color: $light-success;
+            }
+        }
+
+        label {
+            text-align: center;
+        }
     }
 
 
@@ -131,7 +154,7 @@ button.button {
             //border-left: 3px solid $dark-accent;
             margin-bottom: 5px;
             border-radius: 6px;
-            margin: 5px auto ;
+            margin: 5px auto;
 
             .list-container {
                 display: flex;
@@ -370,7 +393,7 @@ select,
         border-radius: 6px;
         //background-color: $white;
         //opacity: 0;
-       // transform:  translateX(180px)
+        // transform:  translateX(180px)
 
     }
 
@@ -393,14 +416,15 @@ select,
             align-items: center;
             opacity: 1;
             //transform: translateX(180px);
-            
+
         }
 
-        &.show-delete-option{
-            .is-danger{
+        &.show-delete-option {
+            .is-danger {
                 display: block;
             }
         }
+
         &:hover {
             // transform: translateX(-5rem);
         }
@@ -409,7 +433,7 @@ select,
 
     button {
         cursor: pointer;
-        width: 40px;
+        width: 60px;
         height: 100%;
         cursor: pointer;
         margin: 0;

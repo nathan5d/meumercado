@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    
+    "outDir": "./assets/js",  // Pasta de destino para os arquivos JavaScript compilados
+    "rootDir": "./src",      // Pasta de origem dos arquivos TypeScript
+    "target": "ES2017",      // Versão de ECMAScript para compilar
+    "module": "commonjs",     // Sistema de módulos (pode ser ES6, CommonJS, etc.)
+   // "module": "ES6",
+    "declaration": true,
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+  ]
+}

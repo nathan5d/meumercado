@@ -38,7 +38,7 @@ body.dark-mode {
 
         &:not(.header):not(.icon) {
             width: 100%;
-           // background-color: $dark-primary;
+            // background-color: $dark-primary;
 
             &:hover {
                 background-color: $dark-success;
@@ -46,79 +46,6 @@ body.dark-mode {
         }
     }
 
-
-    .full-content {
-        background-color: $dark-list-bg;
-
-        .subtitle {
-            color: $dark-text;
-        }
-
-        ul {
-            li {
-                background-color: $dark-list-bg;
-    
-            .list-container {
-                .progress-container {
-                    &::after {
-                        background-color: $dark-bg-progress-container;
-                    }
-                }
-    
-                .completebar {
-                    background: $dark-success;
-    
-                }
-    
-                span {
-                    color: $dark-text;
-                    font-weight: 700;
-    
-                    &:last-child {
-                        font-size: 1.2rem;
-                        color: $dark-success;
-                        font-weight: 500;
-                    }
-                }
-            }
-            }
-        }
-
-        
-        &.home{
-            ul {
-                li {
-                    background-color: $dark-bg;
-        
-                .list-container {
-                    .progress-container {
-                        &::after {
-                            background-color: $dark-bg-progress-container;
-                        }
-                    }
-        
-                    .completebar {
-                        background: $dark-success;
-        
-                    }
-        
-                    span {
-                        color: $dark-text;
-                        font-weight: 700;
-        
-                        &:last-of-type {
-                            font-size: 1.2rem;
-                            color: $dark-success;
-                            font-weight: 500;
-                        }
-                    }
-                }
-                }
-            }
-        }
-    }
-
-   
 
     input,
     textarea,
@@ -133,6 +60,101 @@ body.dark-mode {
 
 
 
+    .full-content {
+        background-color: $dark-list-bg;
+
+        .subtitle {
+            color: $dark-text;
+        }
+
+        .list,
+        .new-list {
+
+            //padding: 10px;
+            input,
+            .input {
+
+                color: $dark-input-text;
+                background-color: $dark-input-bg;
+                border-bottom: 3px solid $dark-bg-progress-container;
+                box-shadow: none;
+                transition: all ease-in-out 0.3s;
+
+                &:hover {
+                    background-color: $dark-bg;
+                    border-color: $dark-success;
+                }
+            }
+
+        }
+
+        ul {
+            li {
+                background-color: $dark-list-bg;
+
+                .list-container {
+                    .progress-container {
+                        &::after {
+                            background-color: $dark-bg-progress-container;
+                        }
+                    }
+
+                    .completebar {
+                        background: $dark-success;
+
+                    }
+
+                    span {
+                        color: $dark-text;
+                        font-weight: 700;
+
+                        &:last-child {
+                            font-size: 1.2rem;
+                            color: $dark-success;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        &.home {
+            ul {
+                li {
+                    background-color: $dark-bg;
+
+                    .list-container {
+                        .progress-container {
+                            &::after {
+                                background-color: $dark-bg-progress-container;
+                            }
+                        }
+
+                        .completebar {
+                            background: $dark-success;
+
+                        }
+
+                        span {
+                            color: $dark-text;
+                            font-weight: 700;
+
+                            &:last-of-type {
+                                font-size: 1.2rem;
+                                color: $dark-success;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
 
     .close {
 
@@ -144,35 +166,38 @@ body.dark-mode {
 
     /* CHECKBOX */
     .c-control {
-        .item-content{
+        .item-content {
             background-color: $dark-bg;
         }
-        .item-options{
-        background-color: $dark-bg;
+
+        .item-options {
+            background-color: $dark-bg;
         }
+
         &.swipe-edit {
             transition: transform 0.2s;
-           
-            .item-content{
+
+            .item-content {
                 width: 100%;
                 //margin-right: 20px;
                 //transform: translateX(-5rem);
-               // border-right: 2px solid $dark-bg-progress-container;
+                // border-right: 2px solid $dark-bg-progress-container;
             }
         }
+
         button {
 
-           // background-color: transparent;
+            // background-color: transparent;
             //color: $dark-primary;
-            &.is{
-                &-danger{
-                   // color: $light-error;
+            &.is {
+                &-danger {
+                    // color: $light-error;
                     //background-color: $light-error;
                 }
             }
 
             &:hover {
-               // color: $dark-text;
+                // color: $dark-text;
                 //background: $dark-success;
 
             }
@@ -200,7 +225,7 @@ body.dark-mode {
         /* Style the checkmark/indicator */
         label .checkmark:after {
 
-           // border: solid white;
+            // border: solid white;
         }
     }
 
@@ -242,27 +267,106 @@ body.dark-mode {
     }
 
 
-.dropdown{
-    &-content{
-        background-color: $dark-bg;
-    }
-}
-
-.file {
-    &-cta {
-        color: $dark-text;
-        background-color: $dark-accent;
-
+    .dropdown {
+        &-content {
+            background-color: $dark-bg;
+        }
     }
 
-    &-label {
-        &:hover {
-            .file-cta {
-                color: $dark-text;
-                background-color: $dark-accent;
+    .file {
+        &-cta {
+            color: $dark-text;
+            background-color: $dark-accent;
+
+        }
+
+        &-label {
+            &:hover {
+                .file-cta {
+                    color: $dark-text;
+                    background-color: $dark-accent;
+                }
+            }
+        }
+
+    }
+
+    // Estilo básico para o modal
+    .modal {
+
+        background-color: rgba(0, 0, 0, 0.5);
+
+        .modal-content {
+            background-color: $dark-bg;
+            border: 1px solid $dark-list-bg;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid $dark-list-bg;
+            padding-bottom: 10px;
+
+            .modal-icon {
+                margin-right: 10px;
+                font-size: 24px; // Tamanho do ícone
+            }
+
+            .modal-title {
+                font-size: 20px;
+            }
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+
+            .modal-button {
+                padding: 10px 20px;
+                margin-left: 10px;
+                cursor: pointer;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+
+                &.primary {
+                    background-color: $dark-primary;
+                    color: $dark-text;
+                }
+
+                &.secondary {
+                    background-color: $dark-secondary;
+                    color: $dark-text;
+                }
+
+                &.info {
+                    background-color: $dark-primary;
+                    color: $dark-text;
+                }
+
+                &.success {
+                    background-color: $dark-success;
+                    color: $dark-text;
+                }
+
+                &.danger {
+                    background-color: $dark-error;
+                    color: $dark-text;
+                }
+
+                &.error {
+                    background-color: $dark-error;
+                    color: $dark-text;
+                }
             }
         }
     }
 
-}
 }
