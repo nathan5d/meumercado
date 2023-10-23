@@ -189,6 +189,7 @@ button.button {
   color: #333333;
   appearance: none;
   border: none;
+  opacity: 0.8;
   transition: all ease-in-out 0.3s; }
   button.button.header {
     color: #ffffff;
@@ -198,7 +199,7 @@ button.button {
     height: auto;
     padding: 15px 30px; }
     button.button:not(.header):not(.icon):hover {
-      background-color: #4caf50; }
+      opacity: 1; }
   button.button.icon {
     background-color: transparent;
     font-size: 25px;
@@ -252,7 +253,13 @@ button.button {
     .full-content .new-list .input:hover {
       background-color: #ffffff;
       border-color: #4caf50; }
-  .full-content .list label,
+  .full-content .list button,
+  .full-content .new-list button {
+    transition: all ease-in-out 0.3s; }
+  .full-content .new-list button {
+    background-color: #4caf50; }
+    .full-content .new-list button:hover {
+      background-color: #4caf50; }
   .full-content .new-list label {
     text-align: center; }
   .full-content ul li {

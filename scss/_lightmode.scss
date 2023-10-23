@@ -52,6 +52,7 @@ button.button {
     color: $light-text;
     appearance: none;
     border: none;
+    opacity: 0.8;
     transition: all ease-in-out 0.3s;
 
 
@@ -67,7 +68,8 @@ button.button {
         padding: 15px 30px;
 
         &:hover {
-            background-color: $light-success;
+           // background-color: $light-success;
+           opacity: 1;
         }
     }
 
@@ -140,7 +142,19 @@ button.button {
                 border-color: $light-success;
             }
         }
+        button{
+            transition: all ease-in-out 0.3s;
+        }
 
+    }
+    .new-list{
+
+        button{
+            background-color: $light-success;
+            &:hover{
+                background-color: $light-success;
+            }
+        }
         label {
             text-align: center;
         }
