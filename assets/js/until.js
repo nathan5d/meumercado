@@ -422,7 +422,7 @@ function removerListaAtual() {
     const listas = JSON.parse(localStorage.getItem("listas")) || [];
     exibirModal({
         title: "Deletar item",
-        content: "Tem certeza que deseja <b>deletar</b> o item da lista?",
+        content: "Tem certeza que deseja <b>deletar</b> a lista atual?",
         buttons: [
             { text: "Sim", value: "confirm", style: "danger" },
             { text: "Cancelar", value: "cancel", style: "secondary" }
