@@ -230,7 +230,7 @@ function mostrarLista(nomeLista) {
         deleteButton.on('click', function () {
             exibirModal({
                 title: "Deletar item",
-                content: "Tem certeza que deseja deletar o item da lista?",
+                content: "Tem certeza que deseja <b>deletar</b> o item da lista?",
                 buttons: [
                     { text: "Sim", value: "confirm", style: "danger" },
                     { text: "Cancelar", value: "cancel", style: "secondary" }
@@ -422,7 +422,7 @@ function removerListaAtual() {
     const listas = JSON.parse(localStorage.getItem("listas")) || [];
     exibirModal({
         title: "Deletar item",
-        content: "Tem certeza que deseja deletar o item da lista?",
+        content: "Tem certeza que deseja <b>deletar</b> o item da lista?",
         buttons: [
             { text: "Sim", value: "confirm", style: "danger" },
             { text: "Cancelar", value: "cancel", style: "secondary" }
@@ -453,11 +453,24 @@ function removerListaAtual() {
 // Função para limpar a lista atual
 function limparLista() {
     const nomeListaAtual = $("#nomeListaAtual").text();
-    if (confirm(`Tem certeza de que deseja limpar a lista "${nomeListaAtual}"?`)) {
-        const lista = { items: [] };
-        localStorage.setItem(nomeListaAtual, JSON.stringify(lista));
-        mostrarLista(nomeListaAtual);
-    }
+    exibirModal({
+        title: "Limpar Lista",
+        content: "Tem certeza que deseja <b>limpar</b> a lista?",
+        buttons: [
+            { text: "Sim", value: "confirm", style: "danger" },
+            { text: "Cancelar", value: "cancel", style: "secondary" }
+        ],
+        result: function (resultado) {
+            if (resultado === "confirm") {
+                const lista = { items: [] };
+                localStorage.setItem(nomeListaAtual, JSON.stringify(lista));
+                mostrarLista(nomeListaAtual);
+            }
+            else if (resultado === "cancel") {
+                console.log("Botão Cancelar foi clicado.");
+            }
+        }
+    });
 }
 function abrirModal() {
     buttonAdd.hide();
