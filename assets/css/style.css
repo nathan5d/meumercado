@@ -234,8 +234,10 @@ button.button {
   overflow: auto;
   z-index: 99; }
   .full-content .box-content {
-    padding: 10px;
+    padding: 10px 20px;
     overflow: hidden; }
+    .full-content .box-content.list {
+      padding: 0; }
   .full-content .subtitle {
     color: #333333;
     font-weight: bold; }
@@ -266,7 +268,7 @@ button.button {
   .full-content .new-list label {
     text-align: center; }
   .full-content ul li {
-    padding: 10px;
+    padding: 10px 20px;
     margin-bottom: 5px;
     border-radius: 6px;
     margin: 5px auto; }
@@ -313,7 +315,6 @@ button.button {
           color: #4caf50;
           font-weight: 500; }
   .full-content.home ul li {
-    padding: 10px;
     background-color: #ffffff; }
 
 .navbar-menu {
@@ -324,7 +325,8 @@ button.button {
 
 .navbar-item {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  padding: 10px 20px; }
 
 input,
 textarea,
@@ -406,7 +408,6 @@ select,
     display: flex;
     justify-content: space-between;
     overflow: hidden;
-    border-radius: 6px;
     position: relative; }
   .c-control div {
     /*&:last-of-type {
@@ -419,11 +420,11 @@ select,
       width: 100%; }
   .c-control .item-content {
     width: 100%;
-    padding: 10px;
+    padding: 10px 20px;
     transition: transform 0.2s;
     animation: ease-in-out all 0.2s;
     background-color: #ffffff;
-    border-radius: 6px;
+    border-radius: 0;
     z-index: 99; }
   .c-control .item-options {
     display: flex;
@@ -434,8 +435,7 @@ select,
     transition: transform 0.2s;
     position: absolute;
     height: 100%;
-    background-color: #ffffff;
-    border-radius: 6px; }
+    background-color: #ffffff; }
   .c-control.swipe-edit {
     transition: transform 0.2s; }
     .c-control.swipe-edit .item-content {

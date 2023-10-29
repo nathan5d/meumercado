@@ -142,7 +142,7 @@ function enableSwipeToEdit() {
                 const deltaX = originalX + event.deltaX;
                 if (deltaX <= 0) {
                     lastDeltaX = deltaX;
-                    // $element.css('transform', `translateX(${deltaX}px)`);
+                    $element.css('transform', `translateX(${deltaX}px)`);
                 }
             }
         });

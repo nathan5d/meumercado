@@ -113,8 +113,13 @@ button.button {
     z-index: 99;
 
     .box-content {
-        padding: 10px;
+
+       
+        padding: 10px 20px;
         overflow: hidden;
+        &.list{
+            padding: 0;
+        }
     }
 
     .subtitle {
@@ -147,6 +152,7 @@ button.button {
         }
 
     }
+    
     .new-list{
 
         button{
@@ -163,7 +169,7 @@ button.button {
 
     ul {
         li {
-            padding: 10px;
+            padding: 10px 20px;
             //background-color: $light-bg;
             //border-left: 3px solid $dark-accent;
             margin-bottom: 5px;
@@ -234,7 +240,7 @@ button.button {
 
         ul {
             li {
-                padding: 10px;
+               // padding: 10px;
                 background-color: $light-bg;
             }
         }
@@ -253,6 +259,7 @@ button.button {
     &-item {
         display: flex;
         align-items: center;
+        padding: 10px 20px;
     }
 }
 
@@ -357,7 +364,6 @@ select,
         display: flex;
         justify-content: space-between;
         overflow: hidden;
-        border-radius: 6px;
         position: relative;
 
     }
@@ -380,13 +386,13 @@ select,
 
     .item-content {
         width: 100%;
-        padding: 10px;
+        padding: 10px 20px;
         transition: transform 0.2s;
         animation: ease-in-out all 0.2s;
 
         background-color: $light-bg;
         //border-left: 3px solid $dark-accent;
-        border-radius: 6px;
+        border-radius: 0;
         z-index: 99;
 
     }
@@ -404,7 +410,6 @@ select,
 
         background-color: $light-bg;
         //border-left: 3px solid $dark-accent;
-        border-radius: 6px;
         //background-color: $white;
         //opacity: 0;
         // transform:  translateX(180px)

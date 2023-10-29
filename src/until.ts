@@ -193,7 +193,7 @@ function enableSwipeToEdit() {
 
                 if (deltaX <= 0) {
                     lastDeltaX = deltaX;
-                    // $element.css('transform', `translateX(${deltaX}px)`);
+                    $element.css('transform', `translateX(${deltaX}px)`);
                 }
 
             }
@@ -346,8 +346,8 @@ function mostrarLista(nomeLista: string) {
                     // Ordenar a lista
                     lista.items = ordenarLista(lista);
                     atualizaTotais(lista);
-                     // Atualize a exibição da lista em tempo real
-            mostrarLista(nomeLista);
+                    // Atualize a exibição da lista em tempo real
+                    mostrarLista(nomeLista);
                 }
             }
         });
@@ -576,7 +576,7 @@ function removerListaAtual() {
 // Função para limpar a lista atual
 function limparLista() {
     const nomeListaAtual = $("#nomeListaAtual").text();
-   
+
 
     exibirModal({
         title: "Limpar Lista",
