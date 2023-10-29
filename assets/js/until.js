@@ -572,14 +572,6 @@ function exportarItensDaLista(nomeLista) {
         console.error('A lista está vazia ou não existe.');
     }
 }
-// Use TypeScript para lidar com o evento de seleção de arquivo
-document.getElementById('fileInput').addEventListener('change', function (event) {
-    const inputElement = event.target;
-    if (inputElement && inputElement.files && inputElement.files.length > 0) {
-        const arquivo = inputElement.files[0];
-        importarItensDoArquivo(arquivo);
-    }
-});
 // Função para importar itens de um arquivo JSON e adicionar à lista atual
 function importarItensDoArquivo(arquivo) {
     const leitor = new FileReader();

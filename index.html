@@ -47,7 +47,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js"></script>
 
 
 </head>
@@ -106,7 +106,6 @@
             <div class="box-content new-list">
                 <!-- Campos e botões com estilo iOS -->
                 <div class="field">
-                    <label class="label">Nome da Lista</label>
                     <div class="control">
                         <input class="input" type="text" id="nomeLista" placeholder="Nome da Lista">
                     </div>
@@ -309,11 +308,11 @@
             <div class="modal-buttons"></div>
         </div>
     </div>
-    
-    
 
 
-  
+
+
+
     <script src="assets/js/until.js"></script>
 
 
@@ -374,6 +373,22 @@
 
 
             /* EXPORTAR / IMPORTAR */
+
+
+            // Use TypeScript para lidar com o evento de seleção de arquivo
+           $('#fileInput').on('change', function (event) {
+
+                console.log('change input file');
+
+                const inputElement = event.target;
+
+                if (inputElement && inputElement.files && inputElement.files.length > 0) {
+                    const arquivo = inputElement.files[0];
+                    importarItensDoArquivo(arquivo);
+                    console.log('clicado');
+                }
+            });
+
 
         });
 
