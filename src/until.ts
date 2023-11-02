@@ -165,7 +165,7 @@ function ocultarLista() {
 
 
 
-function enableSwipeToEdit() {
+function enableSwipeToEditBKP() {
     console.log('habilitado');
     // Seletor para os elementos que terão a funcionalidade de swipe
     const swipeElements = $('.c-control');
@@ -223,6 +223,56 @@ function enableSwipeToEdit() {
         });
     });
 }
+function enableSwipeToEdit() {
+    // Seletor para os elementos que terão a funcionalidade de swipe
+    const swipeElements = $('.c-control');
+    let isSwiping = false;
+    let startX = 0;
+
+    swipeElements.each(function () {
+        const $element = $(this).find('.item-content');
+        const $showOptions = $element.find('.item-options');
+
+        const hammer = new Hammer(this);
+
+        hammer.on('panstart', function (event) {
+            if (!isSwiping) {
+                isSwiping = true;
+                startX = event.center.x;
+            }
+        });
+
+        hammer.on('panmove', function (event) {
+            if (isSwiping) {
+                const deltaX = event.center.x - startX;
+                if (deltaX <= 0) {
+                    $element.css('transform', `translateX(${deltaX}px)`);
+                }
+            }
+        });
+
+        hammer.on('panend', function (event) {
+            if (isSwiping) {
+                isSwiping = false;
+                const deltaX = event.center.x - startX;
+                if (deltaX < -60) {
+                    // Permanece na posição de exclusão
+                    $element.closest('li').addClass('swipe-edit swipe-delete');
+                    $element.css('transform', 'translateX(-120px)');
+                } else if (deltaX < 0) {
+                    // Permanece na posição de edição
+                    $element.closest('li').addClass('swipe-edit');
+                    $element.css('transform', 'translateX(-60px)');
+                } else {
+                    // Volta para a posição original
+                    $element.closest('li').removeClass('swipe-edit swipe-delete');
+                    $element.css('transform', 'translateX(0)');
+                }
+            }
+        });
+    });
+}
+
 
 // Chame a função para habilitar o swipe
 //enableSwipeToEdit();
