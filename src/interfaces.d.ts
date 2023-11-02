@@ -9,7 +9,7 @@ export interface CheckboxProperties extends HTMLInputElement {
 
 // Interface for list items
 export interface ItemList {
-    id: string;
+    id: number | string;
     name: string; // Name
     quantity: number; // Quantity
     price: number; // Price

@@ -481,10 +481,20 @@ function editarItem() {
         itemEdited.price = precoEdited;
         itemEdited.unit = unitEdited;
     } else { // Caso contrário, estamos adicionando um novo item
-        const novoItemID = generateUniqueID(lista);
-        console.log(novoItemID);
+
+
+        // Encontre o maior ID existente na lista
+        let maiorID = 0;
+        lista.items.forEach(item => {
+            if (item.id > maiorID) {
+                maiorID = item.id;
+            }
+        });
+
+        //const novoItemID = generateUniqueID(lista);
+        //console.log(novoItemID);
         const item: ItemList = {
-            id: novoItemID,
+            id: maiorID + 1,
             name: nomeItemEdited,
             quantity: quantityEdited,
             price: precoEdited,
