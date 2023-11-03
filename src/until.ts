@@ -223,7 +223,7 @@ function enableSwipeToEditBKP() {
         });
     });
 }
-function enableSwipeToEdit() {
+function enableSwipeToEditBKP2() {
     // Seletor para os elementos que terão a funcionalidade de swipe
     const swipeElements = $('.c-control');
     let isSwiping = false;
@@ -272,6 +272,78 @@ function enableSwipeToEdit() {
         });
     });
 }
+function enableSwipeToEdit() {
+    const swipeElements = $('.c-control');
+    let isSwiping = false;
+    let startX = 0;
+    let lastDeltaX = 0;
+    const swipeThreshold = -180; // Defina o limite para acionar a ação
+
+    
+    swipeElements.each(function () {
+        const $element = $(this).find('.item-content');
+        const $showOptions = $element.find('.item-options');
+        const itemId = $element.find('input').data('index');
+       
+        const hammer = new Hammer(this);
+
+        hammer.on('panstart', function (event) {
+            if (!isSwiping) {
+                isSwiping = true;
+                startX = event.center.x;
+                lastDeltaX = 0;
+            }
+        });
+
+        hammer.on('panmove', function (event) {
+            if (isSwiping) {
+                const deltaX = event.center.x - startX;
+                lastDeltaX = deltaX;
+
+                if (deltaX <= 0) {
+                    $element.css('transform', `translateX(${deltaX}px)`);
+                    // Aplicar elasticidade (efeito de mola) aos botões de ação
+                    const scale = Math.min(1 - deltaX / 500, 1);
+                    $showOptions.css('transform', `scaleX(${scale})`);
+                }
+            }
+        });
+
+        hammer.on('panend', function (event) {
+            if (isSwiping) {
+                isSwiping = false;
+                const deltaX = event.center.x - startX;
+        
+                if (deltaX <= -60 && deltaX > swipeThreshold) {
+                    // Permanece na posição de exclusão
+                    $element.closest('li').addClass('swipe-edit swipe-delete');
+                    $element.css('transform', 'translateX(-120px)');
+                } else if (deltaX <= 0 && deltaX > -60) {
+                    // Permanece na posição de edição
+                    $element.closest('li').addClass('swipe-edit');
+                    $element.css('transform', 'translateX(-60px)');
+                } else if (lastDeltaX <= swipeThreshold) {
+                    // Ação quando se move por um espaço maior (abaixo do limite)
+                    // Coloque a ação que deseja executar aqui
+                    console.log('Ação executada Editar', itemId);
+                    $element.css('transform', 'translateX(0)');
+                    iniciarEdicaoOuAdicao(itemId);
+
+                }
+        
+                // Volta para a posição original se nenhuma ação foi executada
+                if (deltaX > 0) {
+                    $element.closest('li').removeClass('swipe-edit swipe-delete');
+                    $element.css('transform', 'translateX(0)');
+                }
+        
+                $showOptions.css('transform', 'scaleX(1)');
+            }
+        });
+        
+    });
+}
+
 
 
 // Chame a função para habilitar o swipe
